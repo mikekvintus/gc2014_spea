@@ -59,11 +59,13 @@ font-size:1.5em;
 }
 
 h1.more-stuff{
+border-top:1px solid #dddada;
 color:#5b8ddb;
 font-family: 'Helvetica', sans-serif;
 font-weight: 400;
-font-size: 1em;
+font-size: 1.5em;
 margin:2em 0 0.5em 0;
+padding:1.5em 0 0 0;
 }
 
 h2.faq-q
@@ -88,23 +90,35 @@ font-weight: 400;
 
 
 h2.more-stuff-link{
+border-bottom:1px solid #f4f4f4;
 color:#ffb501;
 font-family: 'Helvetica', sans-serif;
 font-weight: 100;
-font-size: 1em;
+font-size: 1.25em;
 margin:1em 0 1em 0;
+padding:0.35em 0 0.875em 0;
 }
 
+/*
 p.faq-a{
-/*border-bottom:1px solid #dddada;	*/
 color:#4e4545;
 font-size: 1em;
 font-style: italic;
 font-weight: 400;
 line-height: 1.5em;
+hyphens:none;
+}
+*/
+
+p.faq-a{
+color:#626262;
+font-family: 'Helvetica',sans-serif;
+font-weight: 100;
+font-size: 1.2em;
+line-height: 1.5em;
 margin:1em 0 0 1em;
 padding:0 0 3em 0em;
-hyphens:none;
+width:85%;
 }
 
 li.bullet{
