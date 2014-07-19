@@ -26,10 +26,10 @@ h1.entry-title{
 background-color: #5b8ddb;
 color:white;
 font-family: 'Helvetica',sans-serif;
-font-size: 1em;
+font-size: 1.5em;
 font-weight: 100;
 letter-spacing: 1px;
-line-height: 0.9em;
+line-height: 1.2em;
 padding:4em 0;
 text-align: center;
 }
@@ -38,8 +38,8 @@ h1.page-lead-in{
 color:#626262;
 font-family: 'Helvetica',sans-serif;
 font-weight: 100;
-font-size: 1.5em;
-line-height: 1.1em
+font-size: 1em;
+line-height: 1.2em
 }
 
 h1.page-section-head{
