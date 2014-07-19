@@ -17,7 +17,6 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html http://www.apache.org/lice
 
 /* - - - - - - - - - - - - - - - - - - - - -
 RESETS
- - - - - - - - - - - - - - - - - - - - - - */
 body{
 text-decoration: none;
 }
@@ -28,7 +27,6 @@ text-decoration: none;
 
 /* - - - - - - - - - - - - - - - - - - - - -
 SECTIONS
- - - - - - - - - - - - - - - - - - - - - - */
 section.main-wrap{
 margin-top:60px;
 width:100%;
@@ -36,7 +34,6 @@ width:100%;
 
 /* - - - - - - - - - - - - - - - - - - - - -
 WRAPPERS
- - - - - - - - - - - - - - - - - - - - - - */
 .90-wrap{
 margin:0 5%;
 width:90%;
@@ -57,12 +54,13 @@ width:100%;
 
 /* - - - - - - - - - - - - - - - - - - - - -
 TYPOGRAPHY
- - - - - - - - - - - - - - - - - - - - - - */
 
 h1.page-title{
 background-color: #5b8ddb;
 color:white;
 font-size: 2em;
+font-weight: light;
+
 padding:6% 5%;
 width:100%;
 }
@@ -108,7 +106,6 @@ span.copy-link{
 
 /* - - - - - - - - - - - - - - - - - - - - -
 LISTS 
- - - - - - - - - - - - - - - - - - - - - - */
 ul.more-updates{
 
 }
@@ -120,7 +117,6 @@ li.more-updates{
 
 /* - - - - - - - - - - - - - - - - - - - - -
 MEDIA
- - - - - - - - - - - - - - - - - - - - - - */
 img{
 
 }
@@ -137,7 +133,6 @@ width:100%;
 
 /* - - - - - - - - - - - - - - - - - - - - -
 BUTTONS AND FORMS
- - - - - - - - - - - - - - - - - - - - - - */
 button{
 
 }
@@ -164,3 +159,4 @@ padding:1em 0;
 text-align: center;
 width:48%;
 }
+*/
