@@ -59,9 +59,14 @@ width:100%;
 TYPOGRAPHY
  - - - - - - - - - - - - - - - - - - - - - */
 
-h1.page-block-head{
-
+h1.page-title{
+background-color: #5b8ddb;
+color:white;
+font-size: 2em;
+padding:6% 5%;
+width:100%;
 }
+
 
 h2.page-intro{
 
@@ -87,8 +92,12 @@ h4.more-updates{
 
 }
 
-p.copy{
+p{
+font-size: 1rem;
+}
 
+p.lead{
+font-size: 1rem;
 }
 
 span.copy-link{
@@ -127,7 +136,7 @@ width:100%;
 
 
 /* - - - - - - - - - - - - - - - - - - - - -
-BUTTONS
+BUTTONS AND FORMS
  - - - - - - - - - - - - - - - - - - - - - */
 button{
 
