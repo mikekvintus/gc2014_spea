@@ -13,3 +13,126 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html http://www.apache.org/lice
 
 /* =Theme customization starts here
 -------------------------------------------------------------- */
+
+/* - - - - - - - - - - - - - - - - - - - - -
+RESETS
+ - - - - - - - - - - - - - - - - - - - - - */
+body{
+text-decoration: none;
+}
+
+a:link{
+text-decoration: none;
+}
+
+/* - - - - - - - - - - - - - - - - - - - - -
+SECTIONS
+ - - - - - - - - - - - - - - - - - - - - - */
+section.main-wrap{
+margin-top:60px;
+width:100%;
+}
+
+/* - - - - - - - - - - - - - - - - - - - - -
+WRAPPERS
+ - - - - - - - - - - - - - - - - - - - - - */
+.90-wrap{
+margin:0 5%;
+width:90%;
+}
+
+.dash-update-wrap{
+width:100%;
+}
+
+.dash-update-media{
+width:100%;
+}
+
+.dash-ad{
+width:100%;
+}
+
+
+/* - - - - - - - - - - - - - - - - - - - - -
+TYPOGRAPHY
+ - - - - - - - - - - - - - - - - - - - - - */
+
+h1.page-block-head{
+
+}
+
+h2.page-intro{
+
+}
+
+h2.copy-subhead{
+
+}
+
+h2.quote{
+
+}
+
+p.copy{
+
+}
+
+span.copy-link{
+
+}
+
+h3.read-more{
+
+}
+
+h3.more-updates{
+
+}
+
+h4.more-updates{
+
+}
+
+/* - - - - - - - - - - - - - - - - - - - - -
+LISTS 
+ - - - - - - - - - - - - - - - - - - - - - */
+ul.more-updates{
+
+}
+
+li.more-updates{
+
+}
+
+
+/* - - - - - - - - - - - - - - - - - - - - -
+MEDIA
+ - - - - - - - - - - - - - - - - - - - - - */
+img{
+
+}
+
+img.dash-update-img{
+width:100%;
+}
+
+img.dash-ad-img{
+width:100%;
+}
+
+
+
+/* - - - - - - - - - - - - - - - - - - - - -
+BUTTONS
+ - - - - - - - - - - - - - - - - - - - - - */
+button{
+background-color:#5b8ddb;
+border:none;
+width:100%;
+}
+
+button.lg
+{
+
+}
