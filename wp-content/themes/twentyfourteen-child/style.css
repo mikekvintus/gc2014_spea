@@ -93,7 +93,7 @@ hyphens:none;
 
 button{
 background-color:#5b8ddb;
-border-bottom:2px solid #527fc5;
+border-bottom:3px solid #527fc5;
 border-radius:4px;
 color:white;
 margin:0.2em 1%;
@@ -106,9 +106,9 @@ button:visited{
 }
 
 button:hover{
+background-color: #5b8ddb;
 color:#b9cbed
 }
-
 
 button:active{
 border:3px solid #e5e5e5;
