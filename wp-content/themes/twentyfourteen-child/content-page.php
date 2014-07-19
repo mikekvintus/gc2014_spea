@@ -22,9 +22,7 @@
 		if (is_front_page()) { ?>
 					<?php echo do_shortcode( '[adrotate banner="5"]' ) ?>
 					<?php echo do_shortcode( '[adrotate banner="6"]' ) ?>	
-		<?php
-		get_template_part( 'featured-content' );
-		?>
+					<?php echo do_shortcode( '[add_posts show=1 full=true]' ) ?>
 		<?php } ?>
 		<?php
 			the_content();
