@@ -25,3 +25,14 @@ padding:1em 0;
 text-align: center;
 width: 98%;
 }
+
+
+h2.faq-q
+{
+border-bottom:1px solid gray;
+color:gray;
+font-family: 'Georgia';
+font-size: 1.2em;
+font-style: italic;
+padding:0 1em 0 0;
+}
