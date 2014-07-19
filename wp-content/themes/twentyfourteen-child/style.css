@@ -14,10 +14,7 @@
 
 /* =Theme customization starts here
 -------------------------------------------------------------- */
-@font-face {
-font-family: 'varelaround-regular-webfont';
-src: url(fonts/varelaround-regular-webfont.woff);
-}
+@import url("webfonts.css");
 
 p {
 	color: #626262;
@@ -48,7 +45,7 @@ a:hover {
 h1.entry-title{
 background-color: #5b8ddb;
 color:white;
-font-family: 'varelaround-regular-webfont',courier;
+font-family: 'varela_roundregular',courier;
 font-size: 1.5em;
 font-weight: 100;
 letter-spacing: 1px;
@@ -60,7 +57,7 @@ text-transform: capitalize;
 
 h1.page-lead-in{
 color:#626262;
-font-family: 'varelaround-regular-webfont',courier;
+font-family: 'varela_roundregular',courier;
 font-weight: 100;
 font-size: 1.3em;
 line-height: 1.5em;
