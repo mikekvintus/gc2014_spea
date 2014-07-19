@@ -27,7 +27,8 @@ background-color: #5b8ddb;
 color:white;
 font-family: 'Helvetica',sans-serif;
 font-size: 1em;
-font-weight: 400;
+font-weight: 100;
+letter-spacing: 1px;
 line-height: 0.9em;
 padding:4em 0;
 text-align: center;
@@ -62,11 +63,12 @@ padding:1em 0em 1em 1em;
 
 h2.sub-head{
 font-family: 'Helvetica',sans-serif;
-font-size:1em;
+font-size:1.2em;
+font-weight: 400;
 }
 
 p.faq-a{
-border-bottom:1px solid #dddada;	
+/*border-bottom:1px solid #dddada;	*/
 color:#4e4545;
 font-size: 1em;
 font-style: italic;
