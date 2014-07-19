@@ -14,3 +14,14 @@
 
 /* =Theme customization starts here
 -------------------------------------------------------------- */
+
+button.lg{
+color:white;
+background-color:#5b8ddb;
+border:none;
+border-radius:4px;
+margin:0.2em 1%;
+padding:1em 0;
+text-align: center;
+width: 98%;
+}
