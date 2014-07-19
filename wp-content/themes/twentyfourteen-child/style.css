@@ -18,6 +18,10 @@ p{
 font-family: 'Helvetica',sans-serif;
 }
 
+.site-header{
+background-color: #5b8ddb;
+}
+
 .entry-header{
 background-color: #5b8ddb;
 }
@@ -92,12 +96,19 @@ hyphens:none;
 /* BUTTONS */
 
 .search-toggle{
-background-color:#5b8ddb;
+background-color:#527fc5;
 }
 
 button.menu-toggle{
-background-color:#5b8ddb;
+border:0;
+background-color:#527fc5;
 }
+
+button.menu-toggle:hover{
+border:0;
+background-color:#527fc5;
+}
+
 
 button{
 background-color:#5b8ddb;
@@ -112,7 +123,6 @@ box-sizing:border-box;
 }
 
 button:visited{
-
 }
 
 button:hover{
