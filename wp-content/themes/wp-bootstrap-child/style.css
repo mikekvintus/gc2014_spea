@@ -1,3 +1,20 @@
+/*
+Theme Name: wp-bootstrap-child
+Theme URI: http://320press.com/wpbs
+Template: wordpress-bootstrap-master
+Description: A simple responsive theme based on the Bootstrap framework. Includes multiple page templates, two different sidebars and a theme options panel.
+Version: 3.0
+Author: 320press
+Author URI: http://320press.com
+Tags: black, white, one-column, two-columns, flexible-width, custom-background, custom-colors, custom-menu, full-width-template, theme-options
+License: GNU General Public License v2.0 & Apache License 2.0
+License URI: http://www.gnu.org/licenses/gpl-2.0.html http://www.apache.org/licenses/LICENSE-2.0
+*/
+
+/* =Theme customization starts here
+-------------------------------------------------------------- */
+
+
 /* - - - - - - - - - - - - - - - - - - - - -
 RESETS
  - - - - - - - - - - - - - - - - - - - - - */
@@ -58,14 +75,6 @@ h2.quote{
 
 }
 
-p.copy{
-
-}
-
-span.copy-link{
-
-}
-
 h3.read-more{
 
 }
@@ -77,6 +86,16 @@ h3.more-updates{
 h4.more-updates{
 
 }
+
+p.copy{
+
+}
+
+span.copy-link{
+
+}
+
+
 
 /* - - - - - - - - - - - - - - - - - - - - -
 LISTS 
