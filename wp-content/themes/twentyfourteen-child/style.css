@@ -114,16 +114,11 @@ h2.title {
 	text-align: center;
 }
 
-/*
-p.faq-a {
-color: #4e4545;
-font-size: 1em;
-font-style: italic;
-font-weight: 400;
-line-height: 1.5em;
-hyphens: none;
+.post-navigation a:hover,
+.image-navigation a:hover {
+	color: #000;
 }
-*/
+
 
 p.faq-a {
 	color: #626262;
