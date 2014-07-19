@@ -113,6 +113,10 @@ h2.more-stuff-link {
 	padding: 0.35em 0 0.875em 0;
 }
 
+h2.title {
+	text-align: center;
+}
+
 /*
 p.faq-a {
 color: #4e4545;
