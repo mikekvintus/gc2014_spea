@@ -18,6 +18,11 @@ p{
 font-family: 'Helvetica',sans-serif;
 }
 
+a:active{
+color:white;
+}
+
+
 .site-header{
 background-color: #5b8ddb;
 }
@@ -53,6 +58,14 @@ font-family: 'Helvetica',sans-serif;
 font-size:1.5em;
 }
 
+h1.more-stuff{
+color:#5b8ddb;
+font-family: 'Helvetica', sans-serif;
+font-weight: 400;
+font-size: 1em;
+margin:2em 0 0.5em 0;
+}
+
 h2.faq-q
 {
 background-color: #f9f9f9;
@@ -71,6 +84,15 @@ h2.sub-head{
 font-family: 'Helvetica',sans-serif;
 font-size:1.2em;
 font-weight: 400;
+}
+
+
+h2.more-stuff-link{
+color:#ffb501;
+font-family: 'Helvetica', sans-serif;
+font-weight: 100;
+font-size: 1em;
+margin:1em 0 1em 0;
 }
 
 p.faq-a{
@@ -93,36 +115,10 @@ margin:0 0 0.5em 0;
 hyphens:none;
 }
 
+
+
+
 /* BUTTONS */
-
-.search-toggle{
-background-color:#527fc5;
-}
-
-.search-toggle a:link{
-}
-.search-toggle a:visited{
-
-}
-.search-toggle a:hover{
-background-color:#527fc5;
-
-}
-.search-toggle a:active{
-
-}
-
-
-
-button.menu-toggle{
-border:0;
-background-color:#527fc5;
-}
-
-button.menu-toggle:hover{
-border:0;
-background-color:#527fc5;
-}
 
 
 button{
@@ -155,6 +151,20 @@ color:#b9cbed
 button:focus{
 background-color:#527fc5;
 color:#b9cbed
+}
+
+.search-toggle{
+background-color:#527fc5;
+}
+
+button.menu-toggle{
+border:0;
+background-color:#527fc5;
+}
+
+button.menu-toggle:hover{
+border:0;
+background-color:#527fc5;
 }
 
 button.lg{
