@@ -39,7 +39,9 @@ color:#626262;
 font-family: 'Helvetica',sans-serif;
 font-weight: 100;
 font-size: 1em;
-line-height: 1.2em
+line-height: 1.2em;
+margin:0 auto;
+width:85%;
 }
 
 h1.page-section-head{
