@@ -101,6 +101,10 @@ padding:1em 0;
 text-align: center;
 }
 
+button.visited{
+
+}
+
 button.hover{
 background-color:#5b8ddb;
 border-radius:4px;
