@@ -99,6 +99,21 @@ hyphens:none;
 background-color:#527fc5;
 }
 
+.search-toggle a:link{
+}
+.search-toggle a:visited{
+
+}
+.search-toggle a:hover{
+background-color:#527fc5;
+
+}
+.search-toggle a:active{
+
+}
+
+
+
 button.menu-toggle{
 border:0;
 background-color:#527fc5;
