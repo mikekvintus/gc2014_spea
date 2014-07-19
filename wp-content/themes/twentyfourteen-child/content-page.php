@@ -19,6 +19,14 @@
 
 	<div class="entry-content">
 		<?php
+		if (is_front_page()) { ?>
+					<?php echo do_shortcode( '[adrotate banner="5"]' ) ?>
+					<?php echo do_shortcode( '[adrotate banner="6"]' ) ?>	
+		<?php
+		get_template_part( 'featured-content' );
+		?>
+		<?php } ?>
+		<?php
 			the_content();
 			wp_link_pages( array(
 				'before'      => '<div class="page-links"><span class="page-links-title">' . __( 'Pages:', 'twentyfourteen' ) . '</span>',
