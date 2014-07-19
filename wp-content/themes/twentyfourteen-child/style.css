@@ -29,8 +29,8 @@ font-family: 'Helvetica',sans-serif;
 font-size: 1.5em;
 font-weight: 100;
 letter-spacing: 1px;
-line-height: 1.5em;
-padding:4em 0;
+line-height: 1.2em;
+padding:3em 0;
 text-align: center;
 }
 
@@ -39,8 +39,8 @@ color:#626262;
 font-family: 'Helvetica',sans-serif;
 font-weight: 100;
 font-size: 1em;
-line-height: 1.2em;
-margin:1em auto 2em auto;
+line-height: 1.5em;
+margin:1em auto 2.5em auto;
 width:85%;
 }
 
@@ -90,6 +90,32 @@ hyphens:none;
 }
 
 /* BUTTONS */
+
+button{
+background-color:#5b8ddb;
+border-bottom:2px solid #527fc5;
+border-radius:4px;
+color:white;
+margin:0.2em 1%;
+padding:1em 0;
+text-align: center;
+}
+
+button.hover{
+background-color:#5b8ddb;
+border-radius:4px;
+border-bottom:2px solid #527fc5;
+color:#b9cbed
+}
+
+button.active{
+background-color:#5b8ddb;
+border:3px solid #e5e5e5;
+border-radius:4px;
+color:#b9cbed
+}
+
+
 button.lg{
 color:white;
 background-color:#5b8ddb;
@@ -100,4 +126,6 @@ padding:1em 0;
 text-align: center;
 width: 98%;
 }
+
+
 
