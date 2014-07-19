@@ -15,7 +15,14 @@
 /* =Theme customization starts here
 -------------------------------------------------------------- */
 p{
+color:#626262;
 font-family: 'Helvetica',sans-serif;
+font-weight: 100;
+font-size: 1em;
+line-height: 1.5em;
+margin:1em 0 0 0em;
+padding:0 0 1em 0em;
+width:90%;
 }
 
 a:active{
@@ -47,10 +54,10 @@ h1.page-lead-in{
 color:#626262;
 font-family: 'Helvetica',sans-serif;
 font-weight: 100;
-font-size: 1em;
+font-size: 1.3em;
 line-height: 1.5em;
 margin:1em auto 2.5em auto;
-width:85%;
+width:90%;
 }
 
 h1.page-section-head{
@@ -68,8 +75,7 @@ margin:2em 0 0.5em 0;
 padding:1.5em 0 0 0;
 }
 
-h2.faq-q
-{
+h2.faq-q{
 background-color: #f9f9f9;
 border-left:2px solid #e0e0e0;
 color:#4c4c4c;
@@ -114,11 +120,11 @@ p.faq-a{
 color:#626262;
 font-family: 'Helvetica',sans-serif;
 font-weight: 100;
-font-size: 1.2em;
+font-size: 1em;
 line-height: 1.5em;
 margin:1em 0 0 1em;
 padding:0 0 3em 0em;
-width:85%;
+width:90%;
 }
 
 li.bullet{
@@ -126,7 +132,6 @@ color:#4c4c4c;
 font-family: 'Helvetica',sans-serif;
 font-size:1em;
 margin:0 0 0.5em 0;
-hyphens:none;
 }
 
 
