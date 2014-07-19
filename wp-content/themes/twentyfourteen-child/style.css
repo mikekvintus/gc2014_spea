@@ -14,6 +14,12 @@
 
 /* =Theme customization starts here
 -------------------------------------------------------------- */
+@font-face {
+font-family: 'varelaround-regular-webfont';
+src: url(fonts/varelaround-regular-webfont.woff);
+}
+
+
 p{
 color:#626262;
 font-family: 'Helvetica',sans-serif;
@@ -41,18 +47,19 @@ background-color: #5b8ddb;
 h1.entry-title{
 background-color: #5b8ddb;
 color:white;
-font-family: 'Helvetica',sans-serif;
+font-family: 'varelaround-regular-webfont',courier;
 font-size: 1.5em;
 font-weight: 100;
 letter-spacing: 1px;
 line-height: 1.2em;
 padding:3em 0;
 text-align: center;
+text-transform: capitalize;
 }
 
 h1.page-lead-in{
 color:#626262;
-font-family: 'Helvetica',sans-serif;
+font-family: 'varelaround-regular-webfont',courier;
 font-weight: 100;
 font-size: 1.3em;
 line-height: 1.5em;
@@ -89,6 +96,7 @@ padding:1em 0.5em 1em 1em;
 }
 
 h2.sub-head{
+color:;
 font-family: 'Helvetica',sans-serif;
 font-size:1.2em;
 font-weight: 400;
@@ -127,11 +135,12 @@ padding:0 0 3em 0em;
 width:90%;
 }
 
-li.bullet{
+ul.bullet{
 color:#4c4c4c;
 font-family: 'Helvetica',sans-serif;
 font-size:1em;
-margin:0 0 0.5em 0;
+font-weight: 100;
+margin:0 0 0.5em 1em;
 }
 
 
