@@ -99,6 +99,7 @@ color:white;
 margin:0.2em 1%;
 padding:1em 0;
 text-align: center;
+box-sizing:border-box;
 }
 
 button:visited{
