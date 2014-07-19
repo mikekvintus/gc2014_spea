@@ -181,7 +181,7 @@ class WPtouchProThree {
 		// Can be used to adjust the support mobile devices
 		add_filter( 'wptouch_supported_device_classes', array( &$this, 'augment_supported_devices' ) );
 
-		$this->check_for_settings_changes();
+		$this->check_for_settings_changes( false );
 		$this->setup_languages();
 
 		WPTOUCH_DEBUG( WPTOUCH_INFO, 'Adding root functions files' );
@@ -220,6 +220,9 @@ class WPtouchProThree {
 		// Check to see if the mobile theme should be shown - if so, initialize it
 		if ( $this->is_showing_mobile_theme_on_mobile_device() ) {
 			$this->setup_mobile_theme_for_viewing();
+
+			// For Google Best Practices
+			header( 'Vary: User-Agent' );
 		} else {
 			add_action( 'wp_footer', array( &$this, 'handle_desktop_footer' ) );
 		}
@@ -228,6 +231,23 @@ class WPtouchProThree {
 		add_action( 'init', array( &$this, 'setup_desktop_nonce') );
 
 		$this->check_for_critical_notifications();
+
+		if ( is_admin() ) {
+			add_action( 'admin_menu', array( &$this, 'add_notification_icon' ) );
+		}
+	}
+
+	function add_notification_icon() {
+  	  	global $menu;
+
+  	  	require_once( WPTOUCH_DIR . '/core/notifications.php' );
+
+  	  	foreach( $menu as $number => $content ) {
+			if ( $content[0] == 'WPtouch Pro' ) {
+				$content[ 0 ] = $content[ 0 ] . " <span class='wptouch update-plugins count-1' style='display: none;'><span class='update-count'></span></span>";
+				$menu[ $number ] = $content;
+			}
+  	  	}
 	}
 
 	function handle_free_migration( $defaults, $domain ) {
@@ -236,7 +256,7 @@ class WPtouchProThree {
 			if ( !is_array( $free_settings ) ) {
 				$free_settings = maybe_unserialize( $free_settings );
 			}
-			
+
 			if ( $domain == 'wptouch_pro' ) {
 				$defaults->site_title = $free_settings[ 'header-title' ];
 				$defaults->show_wptouch_in_footer = false;
@@ -264,7 +284,7 @@ class WPtouchProThree {
 			if ( $domain == 'foundation' ) {
 				if ( isset( $free_settings[ 'custom-footer-msg' ] ) && $free_settings[ 'custom-footer-msg' ] )  {
 					$defaults->custom_footer_message = $free_settings[ 'custom-footer-msg' ];
-				}	
+				}
 
 				$defaults->homescreen_icon_title = $free_settings[ 'header-title' ];
 
@@ -300,26 +320,26 @@ class WPtouchProThree {
 							$defaults->excluded_tags = implode( ",", $new_tags );
 						}
 					}
-				}				
+				}
 
 				if ( isset( $free_settings[ 'excluded-tag-ids' ] ) && $free_settings[ 'excluded-tag-ids' ] ) {
-					
-				}				
+
+				}
 			}
 
 			if ( $domain == 'bauhaus' ) {
 				if ( $free_settings[ 'link-color' ] != '006bb3' ) {
-					$defaults->bauhaus_link_color = '#' . $free_settings[ 'link-color' ];	
+					$defaults->bauhaus_link_color = '#' . $free_settings[ 'link-color' ];
 				}
-				
+
 				if ( $free_settings[ 'header-background-color' ] != '000000' ) {
-					$defaults->bauhaus_header_color = '#' . $free_settings[ 'header-background-color' ];	
+					$defaults->bauhaus_header_color = '#' . $free_settings[ 'header-background-color' ];
 				}
-				
+
 				if ( $free_settings[ 'header-border-color' ] != '333333' ) {
-					$defaults->bauhaus_post_page_header_color = '#' . $free_settings[ 'header-border-color' ];	
+					$defaults->bauhaus_post_page_header_color = '#' . $free_settings[ 'header-border-color' ];
 				}
-				
+
 			}
 		}
 
@@ -328,7 +348,7 @@ class WPtouchProThree {
 
 	function check_for_critical_notifications() {
 		if ( defined( 'WPTOUCH_MIGRATION_OLD_ISSUE' ) ) {
-			$this->add_critical_notification( sprintf( __( 'Automatic theme migration from uploads/wptouch-data directory failed. Please manually move these files to wp-content/wptouch-data, or %scontact support%s to address this issue.', 'wptouch-pro' ), '<a href="http://www.bravenewcode.com/support/">', '</a>' ) );
+			$this->add_critical_notification( sprintf( __( 'Automatic theme migration from uploads/wptouch-data directory failed. Please manually move these files to wp-content/wptouch-data, or %scontact support%s to address this issue.', 'wptouch-pro' ), '<a href="http://www.wptouch.com/support/">', '</a>' ) );
 		}
 	}
 
@@ -348,11 +368,11 @@ class WPtouchProThree {
 			if ( $this->can_perform_cloud_install( true ) ) {
 				echo '<div class="updated" id="repair-cloud-theme" style="display: none;"></div>';
 				echo '<div class="error" id="repair-cloud-failure" style="display: none;"><p>';
-				echo sprintf( __( 'We were unable to install your WPtouch theme from the Cloud. Please visit %sthis article%s for more information.', 'wptouch-pro' ), '<a href="http://www.bravenewcode.com/support/knowledgebase/themes-or-extensions-cannot-be-downloaded/">', '</a>' );
+				echo sprintf( __( 'We were unable to install your WPtouch theme from the Cloud. Please visit %sthis article%s for more information.', 'wptouch-pro' ), '<a href="http://www.wptouch.com/support/knowledgebase/themes-or-extensions-cannot-be-downloaded/">', '</a>' );
 				echo '</p></div>';
 			} else {
 				echo '<div class="error" id="repair-cloud-failure" style="margin-top: 10px;"><p>';
-				echo sprintf( __( 'You server setup is preventing WPtouch from installing your active theme from the Cloud. Please visit %sthis article%s for more information on how to fix it.', 'wptouch-pro' ), '<a href="http://www.bravenewcode.com/support/knowledgebase/themes-or-extensions-cannot-be-downloaded/">', '</a>' );
+				echo sprintf( __( 'Your server setup is preventing WPtouch from installing your active theme from the Cloud. Please visit %sthis article%s for more information on how to fix it.', 'wptouch-pro' ), '<a href="http://www.wptouch.com/support/knowledgebase/themes-or-extensions-cannot-be-downloaded/">', '</a>' );
 				echo '</p></div>';
 			}
 		} else if ( $this->has_critical_notifications() ) {
@@ -360,7 +380,7 @@ class WPtouchProThree {
 			foreach( $this->get_critical_notifications() as $notification ) {
 				echo '<p>' . $notification[0] . '</p>';
 			}
-        	echo '</div>';			
+        	echo '</div>';
 		}
 	}
 
@@ -370,7 +390,7 @@ class WPtouchProThree {
 		if ( count( $settings->active_addons ) ) {
 			foreach( $settings->active_addons as $addon_name => $addon_info ) {
 				$addon_file_name = WP_CONTENT_DIR . '/' . $addon_info->location . '/' . $addon_info->addon_name . '/' . $addon_info->addon_name . '.php';
-				
+
 				// Load the add-on file
 				if ( file_exists( $addon_file_name ) ) {
 					require_once( $addon_file_name );
@@ -386,26 +406,35 @@ class WPtouchProThree {
 	}
 
 	function set_cache_cookie() {
-		global $wptouch_pro;
-		
-		$cookie_value = 'desktop';
-		if ( $this->is_mobile_device ) {
-			if ( $this->showing_mobile_theme ) {
-				$cookie_value = 'mobile';
-			} else {
-				$cookie_value = 'mobile-desktop';
-			}
-		}
- 
- 		if ( !isset( $_COOKIE[ WPTOUCH_CACHE_COOKIE ] ) || ( isset( $_COOKIE[ WPTOUCH_CACHE_COOKIE ] ) && $_COOKIE[ WPTOUCH_CACHE_COOKIE] != $cookie_value ) ) {
-			setcookie( WPTOUCH_CACHE_COOKIE, $cookie_value, time() + 3600, '/' );
-			$_COOKIE[ WPTOUCH_CACHE_COOKIE ] = $cookie_value;			
-		}
+		if ( !is_admin() && function_exists( 'wptouch_cache_admin_bar' ) ) {
+			global $wptouch_pro;
 
-		if ( !is_admin() ) {
+			$cookie_value = 'desktop';
+
+			if ( $this->is_mobile_device ) {
+				if ( $this->showing_mobile_theme ) {
+					$cookie_value = 'mobile';
+				} else {
+					$cookie_value = 'mobile-desktop';
+				}
+			}
+
+			if ( function_exists( 'wptouch_addon_should_cache_desktop' ) ) {
+				$cache_desktop = wptouch_addon_should_cache_desktop();
+			} else {
+				$cache_desktop = false;
+			}
+
+			if ( $this->is_mobile_device || $cache_desktop === true ) {
+		 		if ( !isset( $_COOKIE[ WPTOUCH_CACHE_COOKIE ] ) || ( isset( $_COOKIE[ WPTOUCH_CACHE_COOKIE ] ) && $_COOKIE[ WPTOUCH_CACHE_COOKIE] != $cookie_value ) ) {
+					setcookie( WPTOUCH_CACHE_COOKIE, $cookie_value, time() + 3600, '/' );
+					$_COOKIE[ WPTOUCH_CACHE_COOKIE ] = $cookie_value;
+				}
+			}
+
 			do_action( 'wptouch_cache_page' );
 		}
-	}	
+	}
 
 	function finish_thumbnail_setup() {
 		$settings = wptouch_get_settings();
@@ -420,10 +449,10 @@ class WPtouchProThree {
 		}
 	}
 
-	function check_for_settings_changes() {
+	function check_for_settings_changes( $update_info = false ) {
 		// Process settings
 		if ( $this->admin_is_wptouch_page() ) {
-			$this->process_submitted_settings();
+			$this->process_submitted_settings( $update_info );
 
 			do_action( 'wptouch_settings_processed' );
 		}
@@ -432,7 +461,7 @@ class WPtouchProThree {
 	function finish_initialization() {
 		$settings = wptouch_get_settings();
 
-		$this->check_for_settings_changes();
+		$this->check_for_settings_changes( true );
 		$this->setup_languages();
 		$this->check_third_party_plugins();
 
@@ -441,7 +470,7 @@ class WPtouchProThree {
 	}
 
 	function setup_desktop_nonce() {
-		$this->desktop_ajax_nonce = wp_create_nonce( 'wptouch-ajax' );	
+		$this->desktop_ajax_nonce = wp_create_nonce( 'wptouch-ajax' );
 	}
 
 	function augment_supported_devices( $devices) {
@@ -540,7 +569,7 @@ class WPtouchProThree {
 			wp_enqueue_script( 'wptouch-pro-ajax', WPTOUCH_URL . '/admin/js/wptouch-ajax.js', array( 'jquery' ) );
 			wp_localize_script( 'wptouch-pro-ajax', 'WPtouchAjax', $ajax_params );
 
-			if ( $theme_broken ) {
+			if ( $theme_broken && !defined( 'WPTOUCH_IS_FREE' ) ) {
 				wp_enqueue_script( 'wptouch-cloud-migrate', WPTOUCH_URL . '/admin/js/wptouch-admin-migrate.js', array( 'wptouch-pro-ajax' ), false, WPTOUCH_VERSION );
 			}
 		}
@@ -561,11 +590,12 @@ class WPtouchProThree {
 				'reset_menus' => __( "This will reset all WPtouch Pro menu and icon settings.\nAre you sure?", 'wptouch-pro' ),
 				'cloud_offline' => __( "Offline", 'wptouch-pro' ),
 				'cloud_offline_message' => __( "You appear to be offline. Connect to the internet to see available BraveNewCloud items.", 'wptouch-pro' ),
-				'cloud_download_fail' => __( 'The item failed to download for this reason: %reason%', 'wptouch-pro' )
+				'cloud_download_fail' => __( 'The item failed to download for this reason: %reason%', 'wptouch-pro' ),
+				'remove_license' => __( 'You are about to reset your license information. Proceed?', 'wptouch-pro' )
 			);
 
 			wp_enqueue_script( 'jquery-plugins', WPTOUCH_URL . '/admin/js/wptouch-admin-plugins.js', 'jquery', md5( WPTOUCH_VERSION ) );
-			
+
 			wp_enqueue_script( 'jquery-ui-draggable' );
 			wp_enqueue_script( 'jquery-ui-droppable' );
 
@@ -577,6 +607,27 @@ class WPtouchProThree {
 
 			// Set up AJAX requests here
 			wp_localize_script( 'jquery-plugins', 'WPtouchCustom', $localize_params );
+		} else {
+			$localize_params = 	array(
+				'admin_url' => get_bloginfo('wpurl') . '/wp-admin',
+				'admin_nonce' => wp_create_nonce( 'wptouch_admin' )
+			);
+
+			wp_enqueue_script( 'wptouch-pro-ajax', WPTOUCH_URL . '/admin/js/wptouch-ajax.js', array( 'jquery' ) );
+
+			$ajax_params = array(
+				'admin_ajax_nonce' => wp_create_nonce( 'wptouch_admin_ajax' )
+			);
+			wp_localize_script( 'wptouch-pro-ajax', 'WPtouchAjax', $ajax_params );
+
+			wp_enqueue_script(
+				'wptouch-pro-other-admin',
+				WPTOUCH_URL . '/admin/js/wptouch-other-admin.js',
+				array( 'wptouch-pro-ajax' )
+			);
+
+			// Set up AJAX requests here
+			wp_localize_script( 'wptouch-pro-other-admin', 'WPtouchCustom', $localize_params );
 		}
 
 		$this->setup_wptouch_admin_ajax();
@@ -630,8 +681,8 @@ class WPtouchProThree {
 	function analyze_user_agent_string() {
 		// check and set cookie
 		if ( isset( $this->get['wptouch_switch'] ) ) {
-
-			setcookie( WPTOUCH_COOKIE, $this->get['wptouch_switch'] );
+			$expires_time = time()+3600*24*365; // 365 days
+			setcookie( WPTOUCH_COOKIE, $this->get['wptouch_switch'], $expires_time );
 			$this->redirect_to_page( $this->get['redirect'] );
 		}
 
@@ -678,7 +729,7 @@ class WPtouchProThree {
 		if ( !$this->showing_mobile_theme ) {
 			if ( $settings->switch_link_method == 'automatic' || $settings->switch_link_method == 'ajax' ) {
 				add_action( 'wp_footer', array( &$this, 'show_desktop_switch_link' ) );
-			}	
+			}
 		}
 	}
 
@@ -726,7 +777,7 @@ class WPtouchProThree {
 
 	function intercept_template() {
 		if ( is_page() ) {
-			global $post;	
+			global $post;
 
 			require_once( WPTOUCH_DIR .'/core/admin-page-templates.php' );
 			$mobile_template = wptouch_get_page_template( $post->ID );
@@ -741,10 +792,10 @@ class WPtouchProThree {
 				if ( file_exists( $template_file ) ) {
 					include( $template_file );
 					exit;
-				}				
+				}
 			}
 		}
-		
+
 	}
 
 	function check_third_party_plugins() {
@@ -781,7 +832,7 @@ class WPtouchProThree {
 
 		header( 'HTTP/1.1 200 OK' );
 		$nonce = $this->post[ 'wp_nonce' ];
-		if( wp_verify_nonce( $nonce, 'wptouch_admin' ) ) {
+		if( wp_verify_nonce( $nonce, 'wptouch_admin' ) && current_user_can( 'manage_options' ) ) {
 			switch( $this->post[ 'file_type'] ) {
 				case 'homescreen_image':
 					WPTOUCH_DEBUG( WPTOUCH_INFO, 'Uploading new HOMESCREEN image' );
@@ -1105,7 +1156,7 @@ class WPtouchProThree {
 
     function check_for_update() {
     	if ( function_exists( 'wptouch_pro_check_for_update' ) ) {
-    		wptouch_pro_check_for_update();
+    		return wptouch_pro_check_for_update();
     	}
     }
 
@@ -1151,7 +1202,7 @@ class WPtouchProThree {
 			return $addon_info;
 		}
 
-		return false;		
+		return false;
 	}
 
 	function get_theme_information( $theme_location, $theme_url, $custom = false ) {
@@ -1208,9 +1259,9 @@ class WPtouchProThree {
 	function get_addon_directories() {
 		$addon_directories = array();
 
-		$addon_directories[] = array( WPTOUCH_DIR . '/extensions', WPTOUCH_URL . '/extensions' );	
+		$addon_directories[] = array( WPTOUCH_DIR . '/extensions', WPTOUCH_URL . '/extensions' );
 
-		return apply_filters( 'wptouch_addon_directories', $addon_directories );		
+		return apply_filters( 'wptouch_addon_directories', $addon_directories );
 	}
 
 	function should_skip_file( $f ) {
@@ -1249,11 +1300,11 @@ class WPtouchProThree {
 		}
 
 		if ( $include_cloud ) {
-			if ( false === ( $cloud_addons = get_transient( '_wptouch_available_cloud_addons' ) ) ) {
-			 	$cloud_addons = wptouch_get_available_cloud_addons();   
+			if ( false === ( $cloud_addons = get_site_transient( '_wptouch_available_cloud_addons' ) ) ) {
+			 	$cloud_addons = wptouch_get_available_cloud_addons();
 
-			 	set_transient( '_wptouch_available_cloud_addons', $cloud_addons, WPTOUCH_THEME_ADDON_TRANSIENT_TIME );
-			}	
+			 	set_site_transient( '_wptouch_available_cloud_addons', $cloud_addons, WPTOUCH_THEME_ADDON_TRANSIENT_TIME );
+			}
 
 			$to_add = array();
 			if ( is_array( $cloud_addons ) && count( $cloud_addons ) ) {
@@ -1269,26 +1320,26 @@ class WPtouchProThree {
 						$this_addon->location = 'cloud';
 
 						if ( isset( $cloud_addon[ 'upgrade_url' ] ) ) {
-							$this_addon->download_url = $cloud_addon[ 'upgrade_url' ];	
+							$this_addon->download_url = $cloud_addon[ 'upgrade_url' ];
 						}
-						
+
 						if ( isset( $cloud_addon[ 'buy_url' ] ) ) {
-							$this_addon->buy_url = $cloud_addon[ 'buy_url' ];	
+							$this_addon->buy_url = $cloud_addon[ 'buy_url' ];
 						}
 
 						if ( isset( $cloud_addon[ 'info_url' ] ) ) {
-							$this_addon->info_url = $cloud_addon[ 'info_url' ];	
+							$this_addon->info_url = $cloud_addon[ 'info_url' ];
 						}
 
 						$to_add[ $this_addon->name ] = $this_addon;
 					} else {
 						$this_addon = $addons[ $cloud_addon[ 'name' ] ];
-						
+
 						$this_addon->cloud_version = $cloud_addon[ 'version' ];
 						$this_addon->upgrade_available = $cloud_addon[ 'version' ] != $this_addon->version;
 
 						if ( isset( $cloud_addon[ 'upgrade_url' ] ) ) {
-							$this_addon->download_url = $cloud_addon[ 'upgrade_url' ];	
+							$this_addon->download_url = $cloud_addon[ 'upgrade_url' ];
 						}
 
 						$addons[ $cloud_addon[ 'name' ] ] = $this_addon;
@@ -1335,11 +1386,11 @@ class WPtouchProThree {
 		}
 
 		if ( $include_cloud ) {
-			if ( false === ( $cloud_themes = get_transient( '_wptouch_available_cloud_themes' ) ) ) {
-			 	$cloud_themes = wptouch_get_available_cloud_themes();   
+			if ( false === ( $cloud_themes = get_site_transient( '_wptouch_available_cloud_themes' ) ) ) {
+			 	$cloud_themes = wptouch_get_available_cloud_themes();
 
-			 	set_transient( '_wptouch_available_cloud_themes', $cloud_themes, WPTOUCH_THEME_ADDON_TRANSIENT_TIME );
-			}			
+			 	set_site_transient( '_wptouch_available_cloud_themes', $cloud_themes, WPTOUCH_THEME_ADDON_TRANSIENT_TIME );
+			}
 
 			$to_add = array();
 			if ( is_array( $cloud_themes ) && count( $cloud_themes ) ) {
@@ -1356,31 +1407,31 @@ class WPtouchProThree {
 						$this_theme->custom_theme = true;
 
 						if ( isset( $cloud_theme[ 'theme_type' ] ) ) {
-							$this_theme->theme_type = $cloud_theme[ 'theme_type' ];	
+							$this_theme->theme_type = $cloud_theme[ 'theme_type' ];
 						}
 
 						if ( isset( $cloud_theme[ 'info_url' ] ) ) {
-							$this_theme->info_url = $cloud_theme[ 'info_url' ];	
-						}						
-						
-						if ( isset( $cloud_theme[ 'upgrade_url' ] ) ) {
-							$this_theme->download_url = $cloud_theme[ 'upgrade_url' ];	
+							$this_theme->info_url = $cloud_theme[ 'info_url' ];
 						}
-						
+
+						if ( isset( $cloud_theme[ 'upgrade_url' ] ) ) {
+							$this_theme->download_url = $cloud_theme[ 'upgrade_url' ];
+						}
+
 						if ( isset( $cloud_theme[ 'buy_url' ] ) ) {
-							$this_theme->buy_url = $cloud_theme[ 'buy_url' ];	
+							$this_theme->buy_url = $cloud_theme[ 'buy_url' ];
 						}
 
 						$to_add[ $this_theme->name ] = $this_theme;
 					} else {
-											
+
 						$this_theme = $themes[ $cloud_theme[ 'name' ] ];
-						
+
 						$this_theme->cloud_version = $cloud_theme[ 'version' ];
 
 						if ( isset( $cloud_theme[ 'upgrade_url' ] ) ) {
 							$this_theme->upgrade_available = $cloud_theme[ 'version' ] != $this_theme->version;
-							$this_theme->download_url = $cloud_theme[ 'upgrade_url' ];	
+							$this_theme->download_url = $cloud_theme[ 'upgrade_url' ];
 						}
 
 						$themes[ $cloud_theme[ 'name' ] ] = $this_theme;
@@ -1389,7 +1440,7 @@ class WPtouchProThree {
 
 				$themes = array_merge( $themes, $to_add );
 			}
-		}		
+		}
 
 		ksort( $themes );
 
@@ -1674,7 +1725,7 @@ class WPtouchProThree {
 
 	function add_critical_notification( $information ) {
 		$this->critical_notifications[] = array( $information );
-	}	
+	}
 
 	function get_critical_notifications() {
 		return $this->critical_notifications;
@@ -1739,9 +1790,16 @@ class WPtouchProThree {
 				$use_lang_rel_path = $rel_path;
 			} else {
 				$lang_file = WPTOUCH_DIR . '/lang/wptouch-pro-' . $current_locale . '.mo';
+
 				if ( file_exists( $lang_file ) && is_readable( $lang_file ) ) {
 					$use_lang_file = $lang_file;
-					$use_lang_rel_path = 'wptouch-pro-3/lang';
+
+					if ( defined( 'WPTOUCH_IS_FREE' ) ) {
+						$use_lang_rel_path = 'wptouch/lang';
+					} else {
+						$use_lang_rel_path = 'wptouch-pro-3/lang';
+					}
+
 				}
 			}
 
@@ -1812,7 +1870,7 @@ class WPtouchProThree {
 			if ( in_array( $domain, $site_wide_domains ) ) {
 				$site_wide = true;
 			}
-		}		
+		}
 
 		return $site_wide;
 	}
@@ -1827,7 +1885,7 @@ class WPtouchProThree {
 
 		if ( isset( $this->settings_objects[ $domain ] ) ) {
 			// settings have been loaded before
-	
+
 			$settings = $this->settings_objects[ $domain ];
 
 			WPTOUCH_DEBUG( WPTOUCH_INFO, '.. Returning previously loaded settings ' . $domain );
@@ -1844,7 +1902,7 @@ class WPtouchProThree {
 			}
 
 			WPTOUCH_DEBUG( WPTOUCH_INFO, '.. Loading settings from database ' . $domain );
-			
+
 			if ( !$settings ) {
 				// Nothing stored in the database, return default settings
 				WPTOUCH_DEBUG( WPTOUCH_INFO, '..What, no chicken? ' . $domain );
@@ -1978,7 +2036,8 @@ class WPtouchProThree {
 	function is_supported_device() {
 		global $wptouch_exclusion_list;
 
-		$user_agent = $_SERVER['HTTP_USER_AGENT'];
+		$user_agent = apply_filters( 'wptouch_user_agent', str_replace( 'Twitter for iPhone', '', $_SERVER['HTTP_USER_AGENT'] ) );
+
 		$settings = $this->get_settings();
 
 		switch( $settings->display_mode ) {
@@ -2059,9 +2118,10 @@ class WPtouchProThree {
 		}
 	}
 
-	function delete_theme_add_on_cache() {					
-		delete_transient( '_wptouch_available_cloud_addons' );
-		delete_transient( '_wptouch_available_cloud_themes' );
+	function delete_theme_add_on_cache() {
+		delete_site_transient( '_wptouch_available_cloud_addons' );
+		delete_site_transient( '_wptouch_available_cloud_themes' );
+		delete_site_transient( '_wptouch_bncid_latest_version' );
 	}
 
 	function activate_license() {
@@ -2069,7 +2129,7 @@ class WPtouchProThree {
 		$bnc_api = $this->get_bnc_api();
 		if ( $bnc_api ) {
 			WPTOUCH_DEBUG( WPTOUCH_INFO, 'Adding license for wptouch-pro-3' );
-			$bnc_api->user_add_license( 'wptouch-pro-3' );
+			$bnc_api->user_add_license();
 
 			$settings = wptouch_get_settings( 'bncid' );
 
@@ -2078,17 +2138,6 @@ class WPtouchProThree {
 			$settings->save();
 
 			$this->delete_theme_add_on_cache();
-		}
-	}
-
-	function remove_license( $site = false ) {
-		$bnc_api = $this->get_bnc_api();
-		if ( $bnc_api ) {
-			if ( !$site ) {
-				$site = $this->post['site'];
-			}
-
-			$bnc_api->user_remove_license( 'wptouch-pro-3', $site );
 		}
 	}
 
@@ -2106,7 +2155,7 @@ class WPtouchProThree {
 
 	function has_site_license() {
 		$api = $this->get_bnc_api();
-		$licenses = $api->user_list_licenses( 'wptouch-pro-3' );
+		$licenses = $api->user_list_licenses();
 		$this_site = $_SERVER['HTTP_HOST'];
 		return ( in_array( $this_site, (array)$licenses['licenses'] ) );
 	}
@@ -2128,7 +2177,7 @@ class WPtouchProThree {
 
 				if ( $key == 'default' ) {
 					$key = $settings->wptouch_license_key;
-				}			
+				}
 			}
 
 			$this->bnc_api = new BNCAPI( $bncid, $key );
@@ -2139,6 +2188,9 @@ class WPtouchProThree {
 		$settings = wptouch_get_settings();
 
 		if ( $settings->show_wptouch_in_footer ) {
+			global $footer_settings;
+			$footer_settings = $settings;
+
 			echo wptouch_capture_include_file( WPTOUCH_DIR . '/include/html/footer.php' );
 		}
 
@@ -2331,31 +2383,11 @@ class WPtouchProThree {
 		// Add the default stylesheet to the end, use min if available
 		$dependencies = array();
 		if ( $this->has_parent_theme() ) {
-			$dependencies = array( 'wptouch-parent' );
 			$parent_info = $this->get_parent_theme_info();
+			$css_file = $this->check_and_use_css_file( '/themes/foundation/' . $this->get_active_device_class() . '/style.css' );
 
-			$css_file = $this->check_and_use_css_file(
-				$parent_info->location . '/' . $this->get_active_device_class() . '/style.css',
-				WP_CONTENT_DIR,
-				WP_CONTENT_URL
-			);
-
-			wp_enqueue_style( 'wptouch-parent', wptouch_check_url_ssl( $css_file ), false, WPTOUCH_VERSION );
+			wp_enqueue_style( 'wptouch-parent-theme-css', wptouch_check_url_ssl( $css_file ), false, WPTOUCH_VERSION );
 			do_action( 'wptouch_parent_style_queued' );
-
-			// Load parent RTL css file
-			if ( wptouch_should_load_rtl() && file_exists( WP_CONTENT_DIR . '/' . $parent_info->location . '/' . $this->get_active_device_class() . '/' . $parent_info->location . '-rtl.css' ) ) {
-				wp_enqueue_style(
-					'wptouch-parent-rtl',
-					wptouch_check_url_ssl( $this->check_and_use_css_file(
-						$parent_info->location . '/' . $this->get_active_device_class() . '/' . $parent_info->location . '-rtl.css',
-						WP_CONTENT_DIR,
-						WP_CONTENT_URL
-					) ),
-		 			array( 'wptouch-parent' ),
-		 			WPTOUCH_VERSION
-		 		);
-			}
 		}
 
 		$css_file = $this->check_and_use_css_file(
@@ -2364,41 +2396,29 @@ class WPtouchProThree {
 			WP_CONTENT_URL
 		);
 
-		wp_enqueue_style( 'wptouch', wptouch_check_url_ssl( $css_file ), $dependencies, WPTOUCH_VERSION );
+		wp_enqueue_style( 'wptouch-theme-css', wptouch_check_url_ssl( $css_file ), 'wptouch-parent-theme-css', WPTOUCH_VERSION );
 
-		// Load child RTL css file
-		if ( wptouch_should_load_rtl() && file_exists( WP_CONTENT_DIR . '/' . $settings->current_theme_location . '/' . $settings->current_theme_name . '/' . $this->get_active_device_class() . '/' . $settings->current_theme_name . '-rtl.css' ) ) {
-			wp_enqueue_style(
-				'wptouch-rtl',
-				wptouch_check_url_ssl( $this->check_and_use_css_file(
-					$settings->current_theme_location . '/' . $settings->current_theme_name . '/' . $this->get_active_device_class() . '/' . $settings->current_theme_name . '-rtl.css',
-					WP_CONTENT_DIR,
-					WP_CONTENT_URL
-				) ),
-	 			array( 'wptouch' ),
-	 			WPTOUCH_VERSION
-	 		);
-	 		
-		}
 	}
 
 	function setup_child_theme_styles() {
 		$css_file = $this->check_and_use_css_file( $this->get_stylesheet_directory( false )  . '/style.css' );
-		wp_enqueue_style( 'wptouch_child', wptouch_check_url_ssl( $css_file ), array( 'wptouch-parent' ), WPTOUCH_VERSION );
+		wp_enqueue_style( 'wptouch_child', wptouch_check_url_ssl( $css_file ), array( 'wptouch-parent-theme-css' ), WPTOUCH_VERSION );
 	}
 
 	function handle_desktop_switch_ajax() {
 		$this->show_desktop_switch_link( true );
-		
+
 		die;
 	}
 
 	function handle_desktop_footer() {
-		if ( defined( 'WPTOUCH_IS_FREE' ) ) {
-			echo "<!-- Powered by WPtouch: " . WPTOUCH_VERSION . " -->";
-		} else {
-			echo "<!-- Powered by WPtouch Pro: " . WPTOUCH_VERSION . " -->";	
-		}	
+		if ( !is_feed() ) {
+			if ( defined( 'WPTOUCH_IS_FREE' ) ) {
+				echo "<!-- Powered by WPtouch: " . WPTOUCH_VERSION . " -->";
+			} else {
+				echo "<!-- Powered by WPtouch Pro: " . WPTOUCH_VERSION . " -->";
+			}
+		}
 	}
 
 	function show_desktop_switch_link( $ajax_request = false ) {
@@ -2421,7 +2441,7 @@ class WPtouchProThree {
 			if ( $settings->switch_link_method == 'ajax' ) {
 				echo "<div id='wptouch_desktop_switch'></div>\n";
 				echo "<script type='text/javascript'>var wptouchAjaxUrl = '" . admin_url( 'admin-ajax.php' ) . "'; wptouchAjaxNonce = '" . $this->desktop_ajax_nonce . "'; wptouchAjaxSwitchLocation = '" . esc_attr( $_SERVER[ 'REQUEST_URI' ] ) . "';</script>\n";
-				echo "<script type='text/javascript' src='" . WPTOUCH_URL . "/include/js/desktop-switch.js'></script>\n";				
+				echo "<script type='text/javascript' src='" . WPTOUCH_URL . "/include/js/desktop-switch.js'></script>\n";
 			} else if ( $this->is_mobile_device && !$this->showing_mobile_theme ) {
 				wptouch_show_desktop_switch_link();
 			}
@@ -2467,7 +2487,7 @@ class WPtouchProThree {
 				if ( $this->is_domain_site_wide( $domain ) ) {
 					delete_site_option( $setting_name );
 				} else {
-					delete_option( $setting_name );	
+					delete_option( $setting_name );
 				}
 			}
 		}
@@ -2476,13 +2496,32 @@ class WPtouchProThree {
 		$this->delete_theme_add_on_cache();
 	}
 
-	function process_submitted_settings() {
+	function process_submitted_settings( $update_info = false ) {
+		$old_settings = wptouch_get_settings();
+
 		if ( 'POST' != $_SERVER['REQUEST_METHOD'] ) {
 			return;
 		}
 
 		require_once( WPTOUCH_DIR . '/core/admin-settings.php' );
 		wptouch_settings_process( $this );
+
+		//$this->delete_theme_add_on_cache();
+
+		$new_settings = wptouch_get_settings();
+
+		if ( !$old_settings->add_referral_code && $new_settings->add_referral_code ) {
+			$bnc_settings = wptouch_get_settings( 'bncid' );
+			$bnc_settings->next_update_check_time = 0;
+			$bnc_settings->save();
+
+			$this->setup_bncapi();
+			wptouch_check_api();
+		}
+
+		if ( function_exists( 'wptouch_pro_update_site_info' ) && $update_info ) {
+			wptouch_pro_update_site_info();
+		}
 	}
 
 	function get_theme_copy_num( $base ) {
@@ -2506,10 +2545,6 @@ class WPtouchProThree {
 		// 3.0 domain specific filtering
 		$settings = apply_filters( 'wptouch_update_settings_domain', $settings, $domain );
 
-		if ( $domain == 'bncid' ) {
-			WPTOUCH_DEBUG( WPTOUCH_VERBOSE, 'Saving settings to database with domain ' . $domain . " " . print_r( $settings, true ) );
-		}
-
 		// Save the old domain
 		$old_domain = $settings->domain;
 		unset( $settings->domain );
@@ -2522,13 +2557,13 @@ class WPtouchProThree {
 		$setting_name = $this->get_wp_setting_name_for_domain( $domain );
 
 		if ( $this->is_domain_site_wide( $domain ) ) {
-			WPTOUCH_DEBUG( WPTOUCH_VERBOSE, 'Saving site wide option for domain ' . $domain ); 
-			update_site_option( $setting_name, $settings );	
+			WPTOUCH_DEBUG( WPTOUCH_VERBOSE, 'Saving site wide option for domain ' . $domain );
+			update_site_option( $setting_name, $settings );
 		} else {
-			WPTOUCH_DEBUG( WPTOUCH_VERBOSE, 'Saving non-site wide option for domain ' . $domain ); 
-			update_option( $setting_name, $settings );	
+			WPTOUCH_DEBUG( WPTOUCH_VERBOSE, 'Saving non-site wide option for domain ' . $domain );
+			update_option( $setting_name, $settings );
 		}
-		
+
 		// Restore old domain
 		$settings->domain = $old_domain;
 
@@ -2536,7 +2571,7 @@ class WPtouchProThree {
 
 		$this->settings_objects[ $domain ] = $settings;
 
-		do_action( 'wptouch_update_settings_domain_' . $domain );		
+		do_action( 'wptouch_update_settings_domain_' . $domain );
 	}
 
 	function recursive_copy( $source_dir, $dest_dir ) {
@@ -2549,38 +2584,5 @@ class WPtouchProThree {
 		require_once( WPTOUCH_DIR . '/core/file-operations.php' );
 
 		wptouch_recursive_delete( $source_dir );
-	}
-
-	function mwp_get_latest_info() {
-    	$latest_info = false;
-
-    	// Do some basic caching
-    	$mwp_info = get_option( 'wptouch_pro_mwp', false );
-    	if ( !$mwp_info || !is_object( $mwp_info ) ) {
-    		$mwp_info = new stdClass;
-    		$mwp_info->last_check = 0;
-    		$mwp_info->last_result = false;
-    	}
-
-    	$time_since_last_check = time() - $mwp_info->last_check;
-    	if ( $time_since_last_check > 300 ) {
-    		$this->setup_bncapi();
-	    	$bnc_api = $this->get_bnc_api();
-	    	if ( $bnc_api ) {
-	    		$latest_info = $bnc_api->get_product_version( 'wptouch-pro' );
-	    		if ( $latest_info ) {
-	    			$mwp_info->last_result = $latest_info;
-	    			$mwp_info->last_check = time();
-
-	    			// Save the result
-	    			update_option( 'wptouch_pro_mwp', $mwp_info );
-	    		}
-	    	}
-    	} else {
-    		// Use the cached copy
-    		$latest_info = $mwp_info->last_result;
-    	}
-
-    	return $latest_info;
 	}
 }

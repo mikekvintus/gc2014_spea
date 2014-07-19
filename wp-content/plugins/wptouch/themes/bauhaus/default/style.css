@@ -1,5 +1,3 @@
-/* @override http://wptp3.local.com/wp-content/wptouch-data/themes/bauhaus/default/style.css?ver=3.1.1 */
-
 /* Bauhaus CSS */
 
 /*
@@ -16,19 +14,11 @@ h1, h2, h3, h4, h5, h6 {
 	letter-spacing: -1px;
 }
 
-#content {
-}
-
-.touched {
-	background-color: rgba(0,0,0,.1);
-}
-
 /* @group Header */
 
 header a, header div {
 	color: rgba(0,0,0,.9);
 	text-shadow: rgba(255,255,255,.2) 0px 1px 0px;
-	
 }
 
 header {
@@ -64,13 +54,17 @@ header img {
 	max-width: 100%;
 }
 
-.portrait header img {
+.portrait header img, .landscape header img {
 	top: 4px;
 }
 
-.landscape header img {
-	top: 4px;
-	
+.drop-down #menu {
+	display: none;
+	position: absolute;
+	top: 54px;
+	z-index: 3;
+	right: 0;
+	left: 0;
 }
 
 #menu-toggle {
@@ -79,8 +73,8 @@ header img {
 	bottom: 0;
 }
 
-#menu-toggle:after{
-	content:"\f0c9";
+#menu-toggle:after {
+	content: "\f0c9";
 	display: block;
 	font: 110% 'FontAwesome', sans-serif;
 	padding: 18px;
@@ -92,8 +86,8 @@ header img {
 	bottom: 0;
 }
 
-#search-toggle:after{
-	content:"\f002";
+#search-toggle:after {
+	content: "\f002";
 	display: block;
 	font: 110% 'FontAwesome', sans-serif;
 	padding: 18px;
@@ -109,16 +103,6 @@ header img {
 
 .login-link i {
 	margin-right: 5px;
-}
-
-#menu {
-	display: none;
-	position: absolute;
-	top: 54px;
-	z-index: 3;
-	right: 0;
-	left: 0;
-	display: none;
 }
 
 #wptouch-search-inner {
@@ -151,8 +135,8 @@ header img {
 }
 
 #search-dropper {
-    overflow: hidden;
-    max-height: 0;
+	overflow: hidden;
+	max-height: 0;
 	-webkit-transition: max-height 400ms ease;
 }
 
@@ -160,6 +144,13 @@ header img {
 	max-height: 50px;
 }
 
+.touched {
+	background-color: rgba(0,0,0,.1);
+}
+
+.page-wrapper .wptouch-custom-ad {
+	margin: 0 0 -3px;
+}
 
 /* @end */
 
@@ -216,7 +207,7 @@ header img {
 }
 
 #slider a p.heading-font:after {
-  content: "\f105";
+	content: "\f105";
 	margin-left: 8px;
 	top: 2px;
 	position: relative;
@@ -243,17 +234,17 @@ header img {
 	position: relative;
 	font-size: 95%;
 	font-weight: bold;
-	vertical-align: -6px;
+	margin-left: -25%;
+	top: 6px;
 }
 
 #slider .comments-number:after {
-	content:"\f075";
+	content: "\f075";
 	display: block;
 	font: 36px 'FontAwesome', sans-serif;
 	position: absolute;
-	left: 50%;
-	margin-left: -18px;
 	top: 0;
+	left: -60%;
 }
 
 ul.dots {
@@ -286,7 +277,7 @@ ul.dots {
 /* Need this because the setting for featured grayscale is overridden by the above */
 
 #slider.grayscale img {
-	-webkit-filter: saturate(100%) grayscale(1) contrast(1.1);	
+	-webkit-filter: saturate(100%) grayscale(1) contrast(1.1);
 }
 
 /* @end */
@@ -333,26 +324,46 @@ ul.dots {
 .loop-link img.post-thumbnail {
 	width: 64px;
 	height: 64px;
-	margin: 15px 10px 0;
+	margin: 12px 10px 0;
 	float: left;
 	z-index: 1;
 	position: relative;
 }
 
-.loop-link i.icon-pencil {
+.loop-link .date-circle {
 	position: relative;
 	font-size: 215%;
 	line-height: 110%;
 	display: block;
 	float: left;
-	margin: 10px 10px 0;
-	width: 64px;
-	height: 50px;
-	text-align: center;
-	padding-top: 14px;
+	margin: 12px 10px 0;
+	width: 62px;
+	height: 48px;
 	border: 1px solid rgba(0,0,0,.1);
 	z-index: 1;
-	background-color: rgba(255,255,255,1);
+	padding-top: 14px;
+	text-align: center;
+	overflow: hidden;
+	color: rgba(0,0,0,.7);
+}
+
+.loop-link .date-circle .month {
+	text-transform: uppercase;
+	font-size: 40%;
+	position: absolute;
+	top: -1px;
+	right: 0;
+	left: 0;
+	letter-spacing: -1px;
+}
+
+.loop-link .date-circle .day {
+	position: absolute;
+	top: 18px;
+	right: 0;
+	left: 0;
+	font-size: 80%;
+	letter-spacing: -1px;
 }
 
 .loop-link .bottom-border {
@@ -369,7 +380,7 @@ ul.dots {
 }
 
 .no-thumbs.loop-link .post-date-author, #content .no-thumbs.loop-link h2 {
-	margin-left: 40px;	
+	margin-left: 40px;
 }
 
 /* @group Comment Bubble */
@@ -385,7 +396,7 @@ ul.dots {
 
 .no-thumbs.loop-link .comments {
 	top: 20px;
-	left: 10px;	
+	left: 10px;
 }
 
 .loop-link .comments span {
@@ -398,7 +409,7 @@ ul.dots {
 }
 
 .loop-link .comments:after {
-	content:"\f075";
+	content: "\f075";
 	display: block;
 	font: 30px 'FontAwesome', sans-serif;
 	position: absolute;
@@ -407,17 +418,18 @@ ul.dots {
 	top: 0;
 }
 
-.no-thumbs.loop-link .comments:after  {
-	-moz-transform: scaleX(-1);
+.no-thumbs.loop-link .comments:after {
 	-o-transform: scaleX(-1);
 	-webkit-transform: scaleX(-1);
+	-ms-transform: scaleX(-1);
+	-moz-transform: scaleX(-1);
 	transform: scaleX(-1);
+	-webkit-filter: FlipH;
 	filter: FlipH;
-	-ms-filter: "FlipH";	
+	-ms-filter: "FlipH";
 }
 
 /* @end */
-
 
 /* @end */
 
@@ -426,28 +438,28 @@ ul.dots {
 /* @group Crumb Path (incomplete) */
 
 .crumb-path {
-background-image: -webkit-gradient(radial, 50% 0%,0,50% 0%,400, to(rgba(0, 0, 0,0)), from(rgba(255, 255, 255, 0.50)));
+	background-image: -webkit-gradient(radial, 50% 0%,0,50% 0%,400, to(rgba(0, 0, 0,0)), from(rgba(255, 255, 255, 0.50)));
 	z-index: 2;
 	text-align: left;
 	opacity: .9;
 }
 
-.crumb-path p  {
+.crumb-path p {
 	font-size: 80%;
 	padding: 6px 12px;
 	margin: 0;
 }
 
 .crumb-path p span {
-  display: inline-block;
-  width: 65%;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+	display: inline-block;
+	width: 65%;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
 
 .landscape .crumb-path p span {
-  width: 78%;	
+	width: 78%;
 }
 
 .ios7 .crumb-path {
@@ -481,7 +493,7 @@ background-image: -webkit-gradient(radial, 50% 0%,0,50% 0%,400, to(rgba(0, 0, 0,
 	color: rgba(0,0,0,.7);
 }
 
-.nav-controls div  {
+.nav-controls div {
 	display: inline-block;
 	width: 49%;
 	vertical-align: top;
@@ -517,8 +529,6 @@ background-image: -webkit-gradient(radial, 50% 0%,0,50% 0%,400, to(rgba(0, 0, 0,
 
 /* @end */
 
-
-
 /* @end */
 
 /* @group Posts / Pages Shared CSS */
@@ -531,6 +541,12 @@ background-image: -webkit-gradient(radial, 50% 0%,0,50% 0%,400, to(rgba(0, 0, 0,
 	overflow: hidden;
 }
 
+.post-page-content .wp-caption {
+	max-width: 300px !important;
+	width: auto !important;
+	padding: 0 20px;
+}
+
 .post-page-content img.aligncenter {
 	margin-left: -20px;
 	margin-right: -20px;
@@ -539,9 +555,10 @@ background-image: -webkit-gradient(radial, 50% 0%,0,50% 0%,400, to(rgba(0, 0, 0,
 }
 
 .post-page-content table {
+	margin-left: 20px;
+	margin-right: 20px;
 	max-width: 100%;
 	overflow: scroll;
-	text-align: center;
 }
 
 .post-page-content h1, .post-page-content h2, .post-page-content h3, .post-page-content h4, .post-page-content h5, .post-page-content h6, .post-page-content dl, .post-page-content address {
@@ -549,7 +566,7 @@ background-image: -webkit-gradient(radial, 50% 0%,0,50% 0%,400, to(rgba(0, 0, 0,
 	margin-right: 20px;
 }
 
- .post-page-content ul, .post-page-content ol {
+.post-page-content ul, .post-page-content ol {
 	margin-left: 15px;
 	margin-right: 15px;
 	list-style-type: circle;
@@ -562,13 +579,12 @@ background-image: -webkit-gradient(radial, 50% 0%,0,50% 0%,400, to(rgba(0, 0, 0,
 	padding-left: 0;
 }
 
-.post-page-content > p, .post-page-content > div > p  {
+.post-page-content > p, .post-page-content > div > p {
 	padding-left: 20px;
 	padding-right: 20px;
-	overflow: hidden;
 }
 
-.wptouch-shortcode-webapp-mobile, .wptouch-shortcode-webapp-only, .wptouch-shortcode-webapp-only  {
+.wptouch-shortcode-webapp-mobile, .wptouch-shortcode-webapp-only, .wptouch-shortcode-webapp-only {
 	margin-top: 15px;
 	padding-left: 20px;
 	padding-right: 20px;
@@ -581,9 +597,6 @@ background-image: -webkit-gradient(radial, 50% 0%,0,50% 0%,400, to(rgba(0, 0, 0,
 	border-bottom-width: 1px;
 }
 
-.post-page-content .fluid-width-video-wrapper {
-}
-
 .post-page-content .post-thumbnail {
 	margin: 0 0 -8px;
 	padding: 0;
@@ -592,7 +605,7 @@ background-image: -webkit-gradient(radial, 50% 0%,0,50% 0%,400, to(rgba(0, 0, 0,
 }
 
 .post-page-head-area .post-date-comments, .post-page-head-area .post-author {
-	font-size: 80%;
+	font-size: 75%;
 	color: rgba(0,0,0,.5);
 	margin-right: 10px;
 	margin-left: 10px;
@@ -607,23 +620,21 @@ background-image: -webkit-gradient(radial, 50% 0%,0,50% 0%,400, to(rgba(0, 0, 0,
 }
 
 .post-page-head-area.bauhaus {
-background-image: -webkit-gradient(radial, 50% 0%,0,50% 0%,500, from(rgba(0, 0, 0,0)), to(rgba(255, 255, 255, 0.50)));
+	background-image: -webkit-gradient(radial, 50% 0%,0,50% 0%,500, from(rgba(0, 0, 0,0)), to(rgba(255, 255, 255, 0.50)));
 	text-align: center;
-	padding-top: 20px;
-	padding-bottom: 20px;
-	text-shadow: rgba(255,255,255,.3) 0px 1px 0px;	
+	padding-top: 10px;
+	padding-bottom: 10px;
+	text-shadow: rgba(255,255,255,.3) 0px 1px 0px;
+	overflow: hidden;
 }
 
 .post-page-head-area.bauhaus h2.post-title {
 	color: rgba(0,0,0,.7);
 	letter-spacing: -2px;
-	font-size: 210%;
-	padding-right: 20px;
-	padding-left: 20px;
-	margin: 0;
-	line-height: 120%;
+	font-size: 180%;
 	font-weight: normal;
-	font-style: normal;
+	margin: 0 !important;
+	padding: 10px 12px;
 }
 
 .post-page-content blockquote {
@@ -662,9 +673,6 @@ background-image: -webkit-gradient(radial, 50% 0%,0,50% 0%,500, from(rgba(0, 0, 
 	font-size: 1.6em;
 }
 
-.related-posts li a {
-}
-
 .related-posts li.has-thumb  p {
 	margin-top: 5px;
 	font-size: .9em;
@@ -681,6 +689,7 @@ background-image: -webkit-gradient(radial, 50% 0%,0,50% 0%,500, from(rgba(0, 0, 
 	height: 50px;
 	top: 3px;
 	border: 1px solid rgba(0,0,0,.1);
+	-webkit-border-radius: 25px;
 	border-radius: 25px;
 }
 
@@ -688,13 +697,11 @@ background-image: -webkit-gradient(radial, 50% 0%,0,50% 0%,500, from(rgba(0, 0, 
 	left: 0;
 }
 
-
-
 /* @end */
 
 /* @group Comments */
 
-.no-com-bubbles #slider .comments-number, .loop-link .comments {
+.no-com-bubbles #slider .comments-number, .no-com-bubbles .loop-link .comments {
 	display: none;
 }
 
@@ -737,6 +744,7 @@ background-image: -webkit-gradient(radial, 50% 0%,0,50% 0%,500, from(rgba(0, 0, 
 #comments .comment-avatar {
 	width: 54px;
 	height: 54px;
+	-webkit-border-radius: 150px;
 	border-radius: 150px;
 	border: 1px solid rgba(255,255,255,.5);
 	float: left;
@@ -775,18 +783,19 @@ background-image: -webkit-gradient(radial, 50% 0%,0,50% 0%,500, from(rgba(0, 0, 
 /* @group Commentform */
 
 form#commentform input, form#commentform textarea {
+	-webkit-border-radius: 4px;
 	border-radius: 4px;
+	-webkit-border-top-left-radius: 12px;
 	border-top-left-radius: 12px;
 }
 
 .dark-post-head form#commentform button#submit {
 	color: rgba(255,255,255,.8);
+	-webkit-border-radius: 4px;
 	border-radius: 4px;
 }
 
 /* @end */
-
-
 
 /* @end */
 
@@ -794,8 +803,7 @@ form#commentform input, form#commentform textarea {
 
 .search span.select-wrap {
 	display: block;
-	margin-bottom: -20px;
-	margin-top: 40px;
+	margin-top: 25px;
 }
 
 .search span.select-wrap .search-select {
@@ -825,24 +833,20 @@ form#commentform input, form#commentform textarea {
 	margin-bottom: 25px;
 }
 
-
-
 /* @end */
 
 /* @group Login Fly-In */
 
 .dark-post-head .wptouch-login-wrap, .dark-post-head .wptouch-login-wrap a {
 	color: rgba(255,255,255,.8);
-	text-shadow: rgba(0,0,0,.2) 0 -1px 0;	
+	text-shadow: rgba(0,0,0,.2) 0 -1px 0;
 }
 
 .dark-post-head .wptouch-login-wrap #wp-submit {
-	color: rgba(255,255,255,.8);	
+	color: rgba(255,255,255,.8);
 	border: 1px solid rgba(0,0,0,.2);
 	background-color: rgba(0,0,0,.1);
 }
-
-
 
 /* @end */
 
@@ -877,20 +881,24 @@ form#commentform input, form#commentform textarea {
 /* @group Circles */
 
 .circles #slider img.clone {
+	-webkit-border-radius: 225px;
 	border-radius: 225px;
 }
 
-.circles .loop-link i.icon-pencil {
-	border-radius: 100px;	
+.circles .loop-link .date-circle {
+	-webkit-border-radius: 100px;
+	border-radius: 100px;
 }
 
 .circles .loop-link img.post-thumbnail {
-	border-radius: 150px;	
+	-webkit-border-radius: 150px;
+	border-radius: 150px;
 }
 
 .landscape.circles #slider img.clone {
 	width: 250px;
 	height: 250px;
+	-webkit-border-radius: 225px;
 	border-radius: 225px;
 	left: -30px;
 	top: 12px;
@@ -912,6 +920,7 @@ form#commentform input, form#commentform textarea {
 
 .roundsquares #slider img.clone {
 	left: -85px;
+	-webkit-border-radius: 30px;
 	border-radius: 30px;
 }
 
@@ -923,22 +932,22 @@ form#commentform input, form#commentform textarea {
 	left: 160px;
 }
 
-.roundsquares .loop-link i.icon-pencil {
-	border-radius: 14px;	
+.roundsquares .loop-link .date-circle {
+	-webkit-border-radius: 14px;
+	border-radius: 14px;
 }
 
 .roundsquares .loop-link img.post-thumbnail, .roundsquares .related img.wp-post-image, .roundsquares .comment-avatar {
-	border-radius: 14px;	
+	-webkit-border-radius: 14px;
+	border-radius: 14px;
 }
-
-
 
 /* @end */
 
 /* @group Dark */
 
 .dark-body .loop-link .post-date-author {
-	color: rgba(255,255,255,.4);	
+	color: rgba(255,255,255,.4);
 }
 
 .dark-header #menu-toggle.touched:after, .dark-header #search-toggle.touched:after {
@@ -949,10 +958,13 @@ form#commentform input, form#commentform textarea {
 	color: rgba(255,255,255,.9);
 }
 
+.dark-header .loop-link .date-circle {
+	color: rgba(255,255,255,.8);
+}
+
 .dark-header header a, .dark-header header div {
 	color: rgba(255,255,255,.9);
 	text-shadow: rgba(0,0,0,.2) 0px -1px 0px;
-	
 }
 
 .dark-body .post-page-content, .dark-body .footer, .dark-body .back-to-top {
@@ -960,7 +972,7 @@ form#commentform input, form#commentform textarea {
 }
 
 .dark-body .loop-link .bottom-border {
-	border-bottom: 1px solid rgba(255,255,255,.15);	
+	border-bottom: 1px solid rgba(255,255,255,.15);
 }
 
 .dark-body .sharing-options a {
@@ -971,7 +983,7 @@ form#commentform input, form#commentform textarea {
 
 .dark-post-head .post-page-head-area h2.post-title, .dark-post-head .post-page-head-area select, .dark-post-head .post-page-head-area .archive-text {
 	color: rgba(255,255,255,.8);
-	text-shadow: rgba(0,0,0,.2) 0px -1px 0px;	
+	text-shadow: rgba(0,0,0,.2) 0px -1px 0px;
 }
 
 .dark-post-head .post-page-head-area .post-date-comments, .dark-post-head .post-page-head-area .post-author {
@@ -981,17 +993,13 @@ form#commentform input, form#commentform textarea {
 
 .dark-post-head .post-page-head-area {
 	background-image: -webkit-gradient(radial, 50% 0%,0,50% 0%,500, from(rgba(255, 255, 255, 0.20)), to(rgba(0, 0, 0,0)));
-	text-align: center;
-	padding-top: 20px;
-	padding-bottom: 20px;
-	overflow: hidden;
 }
 
 .dark-body #comments {
 	color: rgba(255,255,255,.7);
 	background-color: rgba(0,0,0,.05);
 	border-top: 1px solid rgba(0,0,0,.1);
-	border-bottom: 1px solid rgba(0,0,0,.1);	
+	border-bottom: 1px solid rgba(0,0,0,.1);
 }
 
 .dark-body .comment-time {
@@ -1008,12 +1016,23 @@ form#commentform input, form#commentform textarea {
 
 .dark-body .related-posts {
 	background-color: rgba(0,0,0,.2);
-	
 }
 
 /* @end */
 
 /* @group Web App Mode */
+
+.ios7.smartphone.web-app-mode #menu {
+	padding-top: 20px;
+}
+
+.drop-down.ios7.smartphone.web-app-mode #menu {
+	position: fixed;
+	top: 74px;
+	overflow: auto;
+	padding-top: 0;
+	-webkit-overflow-scrolling: touch;
+}
 
 .ios7.web-app-mode.has-fixed header {
 	position: -webkit-sticky;
@@ -1027,17 +1046,57 @@ form#commentform input, form#commentform textarea {
 	top: 74px;
 }
 
-.ios7.smartphone.web-app-mode #menu {
-	position: fixed;
-	top: 74px;
-	overflow: auto;
-	-webkit-overflow-scrolling: touch;
-}
-
 .ios7.web-app-mode #search-dropper {
 	position: -webkit-sticky;
 	top: 74px;
 	z-index: 3;
+}
+
+/* @group Back Button */
+
+.back-button,
+.smartphone.web-app-mode.pushit-active .back-button {
+	display: none;
+}
+
+.smartphone.web-app-mode .back-button {
+	background-color: rgba( 255, 255, 255, 0.2 );
+	color: rgba( 255, 255, 255, 0.3 );
+	border-radius: 35px;
+	display: block;
+	padding: 15px 18px 15px 15px;
+	position: fixed;
+	bottom: 30px;
+	left: 30px;
+	transition: background-color .5s linear;
+	z-index: 1;
+}
+
+.smartphone.web-app-mode .back-button.visible {
+	background-color: rgba( 255, 255, 255, 1 );
+	color: #000;
+	transition: background-color .5s linear;
+}
+
+.light-body.smartphone.web-app-mode .back-button {
+	background: rgba( 0, 0, 0, 0.1 );
+	color: rgba( 0, 0, 0, 0.3 );
+}
+
+.light-body.smartphone.web-app-mode .back-button.visible {
+	background-color: rgba( 0, 0, 0, 0.8 );
+	color: #fff;
+}
+
+/* @end */
+
+/* @end */
+
+/* @group Off-Canvas Login */
+
+.off-canvas .wptouch-login-wrap {
+	text-align: center;
+	font-size: 70%;
 }
 
 

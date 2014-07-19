@@ -14,14 +14,14 @@ class WPtouchIconSetInstaller extends WP_Upgrader {
 		$skin = new WPtouchIconSetSkin;
 		parent::__construct( $skin );
 	}
-	
+
 	function install( $name, $package ) {
 		$options = array(
 			'package' => $package,
 			'destination' => WPTOUCH_BASE_CONTENT_DIR . '/icons/' . $name,
-			'clear_destination' => true, 
+			'clear_destination' => true,
 			'clear_working' => true
-		);		
+		);
 
 		$this->run( $options );
 	}

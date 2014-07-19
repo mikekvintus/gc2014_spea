@@ -32,24 +32,26 @@
 	<?php } ?>
 	<div class="item-information">
 		<?php if ( wptouch_cloud_addon_update_available() ) { ?>
-			<?php if ( wptouch_can_cloud_install( false ) ) { ?>
-			<a class="btn btn-small btn-info upgrade" href="#" data-name="<?php wptouch_the_addon_base(); ?>" data-url="<?php wptouch_the_addon_download_url(); ?>" data-loading-text="<i class='icon-cloud-download'></i><?php _e( 'Upgrading...', 'wptouch-pro' ); ?>"><i class="icon-cloud-download"></i><?php echo sprintf( __( 'Upgrade to %s', 'wptouch-pro' ), wptouch_cloud_addon_get_update_version() ); ?></a>
-			<?php } else { ?>
-			<a class="btn btn-small btn-info cant-upgrade" href="<?php wptouch_the_addon_download_url(); ?>"><i class="icon-cloud-download"></i> <?php echo sprintf( __( 'Download %s Update', 'wptouch-pro' ), wptouch_cloud_addon_get_update_version() ); ?></a>
+			<?php if ( !defined( 'WPTOUCH_IS_FREE' ) && wptouch_is_site_licensed() ) { ?>
+				<?php if ( wptouch_can_cloud_install( false ) ) { ?>
+				<a class="button-primary upgrade" href="#" data-name="<?php wptouch_the_addon_base(); ?>" data-url="<?php wptouch_the_addon_download_url(); ?>" data-loading-text="<i class='icon-cloud-download'></i><?php _e( 'Updating...', 'wptouch-pro' ); ?>"><i class="icon-cloud-download"></i><?php echo sprintf( __( 'Upgrade to %s', 'wptouch-pro' ), wptouch_cloud_addon_get_update_version() ); ?></a>
+				<?php } else { ?>
+				<a class="button-primary cant-upgrade" href="<?php wptouch_the_addon_download_url(); ?>"><i class="icon-download"></i> <?php echo sprintf( __( 'Download %s Update', 'wptouch-pro' ), wptouch_cloud_addon_get_update_version() ); ?></a>
+				<?php } ?>
 			<?php } ?>
 		<?php } ?>
 		<h4>
 			<?php wptouch_the_addon_title(); ?> <span class="version"><?php wptouch_the_addon_version(); ?></span>
 		</h4>
-		<h5>	
+		<h5>
 			<?php echo sprintf( __( 'by %s', 'wptouch-pro' ), wptouch_get_addon_author() ); ?>
 		</h5>
 		<p class="desc"><?php wptouch_the_addon_description(); ?></p>
-		
+
 		<p class="info">
 			<?php if ( !wptouch_is_addon_in_cloud() ) { ?>
-			<?php echo sprintf( __( 'Extension location: %s', 'wptouch-pro' ), wptouch_get_addon_location() ); ?> 
-			<i class="wptouch-tooltip icon-question-sign" title="<?php _e( 'Relative to your WordPress wp-content directory.', 'wptouch-pro' ); ?>"></i>
+			<?php echo sprintf( __( 'Extension location: %s', 'wptouch-pro' ), wptouch_get_addon_location() ); ?>
+			<i class="wptouch-tooltip icon-info-sign" title="<?php _e( 'Relative to your WordPress wp-content directory.', 'wptouch-pro' ); ?>"></i>
 			<?php } ?>
 			<br />
 		</p>
@@ -58,16 +60,16 @@
 				<?php if ( wptouch_get_addon_buy_url() ) { ?>
 					<?php if ( defined( 'WPTOUCH_IS_FREE' ) ) { ?>
 						<?php if ( wptouch_addon_info_url() ) { ?>
-						<li><a class="btn btn-small buynow" href="<?php echo wptouch_addon_info_url(); ?>"><?php _e( 'Available in WPtouch Pro', 'wptouch-pro' ); ?></a></li>
+						<li><a class="button-secondary buynow" href="<?php echo wptouch_addon_info_url(); ?>"><?php _e( 'Available in WPtouch Pro', 'wptouch-pro' ); ?></a></li>
 						<?php } ?>
 					<?php } else { ?>
 						<?php if ( wptouch_addon_info_url() ) { ?>
-						<li><a class="btn btn-small buynow" href="<?php echo wptouch_addon_info_url(); ?>"><?php _e( 'More Info', 'wptouch-pro' ); ?></a></li>
+						<li><a class="button-secondary buynow" href="<?php echo wptouch_addon_info_url(); ?>"><?php _e( 'More Info', 'wptouch-pro' ); ?></a></li>
 						<?php } ?>
 						<?php if ( wptouch_has_license() ) { ?>
-						<li><a class="btn btn-small buynow" href="<?php wptouch_the_addon_buy_url(); ?>"><?php _e( 'Upgrade License', 'wptouch-pro' ); ?></a></li>
+						<li><a class="button-secondary buynow" href="<?php wptouch_the_addon_buy_url(); ?>"><?php _e( 'Upgrade License', 'wptouch-pro' ); ?></a></li>
 						<?php } else { ?>
-						<li><a class="btn btn-small buynow" href="<?php wptouch_the_addon_buy_url(); ?>"><?php _e( 'Get License', 'wptouch-pro' ); ?></a></li>
+						<li><a class="button-secondary buynow" href="<?php wptouch_the_addon_buy_url(); ?>"><?php _e( 'Get License', 'wptouch-pro' ); ?></a></li>
 						<?php } ?>
 					<?php } ?>
 
@@ -75,21 +77,21 @@
 					<?php if ( current_user_can( 'install_plugins' ) ) { ?>
 					<li>
 						<?php if ( wptouch_can_cloud_install( false ) ) { ?>
-						<a class="btn btn-small btn-info download" href="#" data-name="<?php wptouch_the_addon_base(); ?>" data-url="<?php wptouch_the_addon_download_url(); ?>" data-loading-text="<i class='icon-cloud-download'></i><?php _e( 'Downloading...', 'wptouch-pro' ); ?>"><i class="icon-cloud-download"></i><?php _e( 'Install', 'wptouch-pro' ); ?></a>
+						<a class="button-primary download" href="#" data-name="<?php wptouch_the_addon_base(); ?>" data-url="<?php wptouch_the_addon_download_url(); ?>" data-loading-text="<i class='icon-cloud-download'></i><?php _e( 'Downloading...', 'wptouch-pro' ); ?>"><i class="icon-cloud-download"></i><?php _e( 'Install', 'wptouch-pro' ); ?></a>
 						<?php } else { ?>
-						<a class="btn btn-small btn-info" href="<?php wptouch_the_addon_download_url(); ?>"><i class="icon-cloud-download"></i> <?php _e( 'Download', 'wptouch-pro' ); ?></a>
+						<a class="button-primary" href="<?php wptouch_the_addon_download_url(); ?>"><i class="icon-cloud-download"></i> <?php _e( 'Download', 'wptouch-pro' ); ?></a>
 						<?php } ?>
 					</li>
 					<?php } ?>
 				<?php } ?>
 			<?php } else { ?>
 				<?php if ( !wptouch_is_addon_active() && current_user_can( 'activate_plugins' ) ) { ?>
-					<li><a class="btn btn-small activate" href="<?php wptouch_the_addon_activate_link_url(); ?>"><?php _e( 'Activate', 'wptouch-pro' ); ?></a></li>
-				<?php } ?>	
+					<li><a class="button-primary" href="<?php wptouch_the_addon_activate_link_url(); ?>"><?php _e( 'Activate', 'wptouch-pro' ); ?></a></li>
+				<?php } ?>
 				<?php if ( wptouch_is_addon_active() && current_user_can( 'activate_plugins' ) ) { ?>
-					<li><a class="btn btn-small btn-success" href="admin.php?page=wptouch-admin-addon-settings"><?php _e( 'Setup', 'wptouch-pro' ); ?></a></li>
-					<li><a class="btn btn-small deactivate" href="<?php wptouch_the_addon_deactivate_link_url(); ?>"><?php _e( 'Deactivate', 'wptouch-pro' ); ?></a></li>
-				<?php } ?>				
+					<li><a class="button-primary" href="admin.php?page=wptouch-admin-addon-settings"><?php _e( 'Setup', 'wptouch-pro' ); ?></a></li>
+					<li><a class="button-secondary deactivate" href="<?php wptouch_the_addon_deactivate_link_url(); ?>"><?php _e( 'Deactivate', 'wptouch-pro' ); ?></a></li>
+				<?php } ?>
 			<?php } ?>
 		</ul><!-- item-actions -->
 	</div>

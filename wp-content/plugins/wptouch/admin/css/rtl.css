@@ -3,7 +3,7 @@
 /* @group General */
 body {
   direction: rtl;
-  unicode-bidi: embed;	
+  unicode-bidi: embed;
 }
 
 #wptouch-settings-area.wrap {

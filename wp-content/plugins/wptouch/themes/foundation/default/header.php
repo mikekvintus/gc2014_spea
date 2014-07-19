@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
+		<meta charset="<?php bloginfo( 'charset' ); ?>">
 		<title><?php wp_title( ' | ', true, 'right' ); ?></title>
 		<?php wptouch_head(); ?>
 	</head>
@@ -15,3 +16,5 @@
 		<?php do_action( 'wptouch_body_top' ); ?>
 		
 		<?php get_template_part( 'header-bottom' ); ?>
+
+		<?php do_action( 'wptouch_body_top_second' ); ?>

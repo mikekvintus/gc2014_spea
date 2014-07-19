@@ -18,9 +18,9 @@
 		<?php } ?>
 	</div> <!-- content -->
 	
-	<?php get_template_part( 'nav-bar' ); ?>
-	
 	<?php get_template_part( 'related-posts' ); ?>
+	
+	<?php get_template_part( 'nav-bar' ); ?>
 	
 	<?php if ( comments_open() ) { ?>
 		<div id="comments">

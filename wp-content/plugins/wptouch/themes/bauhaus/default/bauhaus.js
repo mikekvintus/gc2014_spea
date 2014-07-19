@@ -8,7 +8,13 @@ function doBauhausReady() {
 	bauhausSearchToggle();
 	bauhausWebAppMenu();
 	bauhausVideoUnwrap();
+	bauhausHandleWebAppScrolling();
 	bauhausHandleSearch();
+	bauhausHandlePostImgs();
+	if ( jQuery.fn.pushIt ) {
+		jQuery( 'body' ).pushIt( { menuWidth: '270' } );
+		bauhausOffCanvasMods();
+	}
 }
 
 // Spice up the appearance of Foundation's Featured Slider
@@ -47,7 +53,7 @@ function bauhausBindTappableLinks(){
 // In Web-App Mode, dynamically ensure that the Menu height is correct and scrollable
 function bauhausWebAppMenu(){
 	if ( navigator.standalone ) {
-		jQuery( window ).resize( function() { 
+		jQuery( window ).resize( function() {
 			var windowHeight = jQuery( window ).height() - 74;
 			if ( jQuery( 'body.web-app-mode.ios7.smartphone.portrait' ).length ) {
 				jQuery( '#menu' ).css( 'max-height', windowHeight );
@@ -67,15 +73,47 @@ if ( pTags.parent().is( 'p' ) ) {
   }
 }
 
+function bauhausHandleWebAppScrolling(){
+	var startPosition = 0;
+	var backButton = jQuery( '.back-button' );
+
+	if ( backButton.is( 'div' ) ) {
+		jQuery( window ).scroll( function () {
+			var newPosition = jQuery( this ).scrollTop();
+			if ( newPosition > startPosition ) {
+				backButton.removeClass( 'visible' );
+			} else {
+				if ( !backButton.hasClass( 'visible' ) ) {
+					backButton.addClass( 'visible' );
+				}
+			}
+			startPosition = newPosition;
+		});
+	}
+}
+
+function bauhausHandlePostImgs(){
+var img = jQuery( '.post-page-content p img' );
+	jQuery( img ).each( function(){
+		if ( !jQuery( this ).is( '.aligncenter, .alignleft, .alignright' ) ) {
+			jQuery( this ).addClass( 'aligncenter' );
+		}
+	});
+}
+
 function bauhausHandleSearch() {
 	if ( jQuery( '.search' ).length ) {
 		jQuery( '.search-select' ).change( function( e ) {
 			var sectionName = ( '#' + jQuery( this ).find( ':selected' ).attr( 'data-section' ) + '-results' );
 			jQuery( '#content > div:not(.post-page-head-area)' ).hide();
 			jQuery( sectionName ).show();
-			e.preventDefault();		
+			e.preventDefault();
 		}).trigger( 'change' );
 	}
+}
+
+function bauhausOffCanvasMods(){
+	jQuery( '.wptouch-login-wrap' ).detach().appendTo( 'body' );
 }
 
 jQuery( document ).ready( function() { doBauhausReady(); } );

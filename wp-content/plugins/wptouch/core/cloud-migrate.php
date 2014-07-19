@@ -2,7 +2,13 @@
 
 function wptouch_migration_is_theme_broken() {
 	$settings = wptouch_get_settings();
-	return ( !file_exists( WP_CONTENT_DIR . $settings->current_theme_location . '/'. $settings->current_theme_name ) );	
+
+	if ( !defined( 'WPTOUCH_IS_FREE' ) ) {
+		$settings->current_theme_location = str_replace( 'plugins/wptouch', 'plugins/wptouch-pro-3', $settings->current_theme_location );
+	}
+
+	$broken = ( !file_exists( WP_CONTENT_DIR . $settings->current_theme_location . '/'. $settings->current_theme_name ) );
+	return $broken;
 }
 
 function wptouch_migration_check_for_broken_extensions() {
@@ -41,7 +47,7 @@ function wptouch_can_repair_active_theme() {
 			$theme_fixed = true;
 			break;
 		}
-	}		
+	}
 
 	return $theme_fixed;
 }
@@ -57,7 +63,7 @@ function wptouch_repair_active_theme_from_cloud( &$error_condition ) {
 
 	// We need to download the theme and then repair it
 	$themes = $wptouch_pro->get_available_themes( true );
-	if ( isset( $themes[ $settings->current_theme_friendly_name ] ) ) {		
+	if ( isset( $themes[ $settings->current_theme_friendly_name ] ) ) {
 		require_once( WPTOUCH_DIR . '/core/addon-theme-installer.php' );
 
 		$theme_to_install = $themes[ $settings->current_theme_friendly_name ];
@@ -66,9 +72,7 @@ function wptouch_repair_active_theme_from_cloud( &$error_condition ) {
 		$result = $addon_installer->install( $theme_to_install->base, $theme_to_install->download_url, 'themes' );
 		if ( $result ) {
 			$wptouch_pro->repair_active_theme( WPTOUCH_BASE_CONTENT_DIR . '/themes', $settings->current_theme_friendly_name );
-		} else {
-			$error_condition = $addon_installer->get_error();
-		}
+		} 
 	}	
 
 	return $result;

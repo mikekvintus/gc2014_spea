@@ -4,8 +4,8 @@
 	<?php _e( 'WPtouch Pro will be active when any of the following user-agents or user-agent combinations are matched', 'wptouch-pro' ); ?> :
 	<?php } else { ?>
 	<?php _e( 'WPtouch Pro will be active when any of the following user-agents or user-agent combinations are matched', 'wptouch-pro' ); ?> :
-	<?php } ?>	
-	
+	<?php } ?>
+
 	<br />
 	<span class="agents">
 		<?php

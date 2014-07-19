@@ -1,4 +1,4 @@
-<div class="fdn-colors"> 
+<div class="fdn-colors">
 	<div class="dropdown">
 		<p class="dropdown-toggle" data-toggle="dropdown" href="#"><span style="background: <?php wptouch_admin_the_setting_value(); ?>;"></span><?php wptouch_admin_the_setting_desc(); ?></p>
 		<ul class="dropdown-menu" role="menu">
@@ -11,8 +11,8 @@
 			<ul class="desktop-colors-ul">
 				<?php foreach( $colors as $color ) { ?>
 					<li class="desktop-colors-color" data-background="<?php echo $color; ?>"></li>
-				<?php } ?>				
-			</ul> 
+				<?php } ?>
+			</ul>
 			<?php } ?>
 			<ul class="palette">
 				<li>

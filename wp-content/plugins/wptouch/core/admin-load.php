@@ -19,7 +19,7 @@ function wptouch_admin_menu_nonce_is_valid( $nonce ) {
 
 function wptouch_admin_check_api() {
 	require_once( WPTOUCH_DIR . '/core/bncid.php' );
-	wptouch_check_api();	
+	wptouch_check_api();
 }
 
 
@@ -84,10 +84,10 @@ function wptouch_add_page_section( $sub_page_name, $section_name, $section_slug,
 		}
 
 		$options[ $sub_page_name ]->sections[] = $section;
-	}
+	} 
 }
 
-function wptouch_add_setting( $type, $name, $desc = '', $tooltip = '', $level = WPTOUCH_SETTING_BASIC, $version = false, $extra = false, $domain = '' ) {
+function _wptouch_add_setting( $type, $name, $desc = '', $tooltip = '', $level = WPTOUCH_SETTING_BASIC, $version = false, $extra = false, $domain = '', $is_pro = false ) {
 	$setting = new stdClass;
 
 	$setting->type = $type;
@@ -98,8 +98,17 @@ function wptouch_add_setting( $type, $name, $desc = '', $tooltip = '', $level = 
 	$setting->version = $version;
 	$setting->extra = $extra;
 	$setting->domain = $domain;
+	$setting->is_pro = $is_pro;
 
 	return $setting;
+}
+
+function wptouch_add_pro_setting( $type, $name, $desc = '', $tooltip = '', $level = WPTOUCH_SETTING_BASIC, $version = false, $extra = false, $domain = '' ) {
+	return _wptouch_add_setting( $type, $name, $desc, $tooltip, $level, $version, $extra, $domain, true );
+}
+
+function wptouch_add_setting( $type, $name, $desc = '', $tooltip = '', $level = WPTOUCH_SETTING_BASIC, $version = false, $extra = false, $domain = '' ) {
+	return _wptouch_add_setting( $type, $name, $desc, $tooltip, $level, $version, $extra, $domain, false );
 }
 
 function wptouch_admin_render_menu() {
@@ -154,7 +163,7 @@ function wptouch_admin_render_setting( $setting ) {
 			$rendered = true;
 			break;
 		}
-	} 
+	}
 
 	if ( !$rendered ) {
 		do_action( 'wptouch_admin_render_setting', $setting );
@@ -180,7 +189,7 @@ function wptouch_admin_render_special_setting( $setting ) {
 				include( $dir . '/html/' . $setting_filename );
 
 				break;
-			}			
+			}
 		}
 	}
 }
@@ -276,10 +285,14 @@ function wptouch_admin_panel_get_classes( $classes = false ) {
 
 	if ( wptouch_should_show_license_nag() ) {
 		$final_classes[] = 'unlicensed';
+	} else {
+		$final_classes[] = 'licensed';
 	}
 
 	if ( defined( 'WPTOUCH_IS_FREE' ) ) {
 		$final_classes[] = 'wptouch-free';
+	} else {
+		$final_classes[] = 'wptouch-not-free';
 	}
 
 	return $final_classes;

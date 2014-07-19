@@ -5,18 +5,30 @@
 				<li><a href="#" class="check-all"><?php _e( 'Check All', 'wptouch-pro' ); ?></a></li> |
 				<li><a href="#" class="check-none"><?php _e( 'None', 'wptouch-pro' ); ?></a></li> |
 				<li><a href="#" class="reset-all"><?php _e( 'Reset', 'wptouch-pro' ); ?></a></li>
-			</ul>			
+			</ul>
 			<?php _e( 'Menu', 'wptouch-pro' ); ?>
 
 			<select name="menu-list" id="menu-list">
-				<?php global $wptouch_pro; ?>
-				<?php foreach( $wptouch_pro->theme_menus as $menu_info ) { ?>
-					<?php $real_name = wptouch_get_menu_name_from_slug( $menu_info->setting_name ); ?>
-					<?php if ( $real_name == 'none' ) continue; ?>
-					<option value="menu-<?php echo wptouch_get_menu_name_from_slug( $menu_info->setting_name ); ?>"><?php echo $menu_info->friendly_name; ?></option>
-				<?php } ?>
-			</select>	
-			<i class="wptouch-tooltip icon-question-sign" data-original-title="<?php _e( 'Active menus used in this theme.', 'wptouch-pro' ); ?>"></i>
+				<?php
+					global $wptouch_pro;
+					$menus = wptouch_get_custom_menu_list();
+					$rendered_menus = array();
+				?>
+
+				<?php
+					foreach( $wptouch_pro->theme_menus as $menu_info ) {
+						$menu_id = wptouch_get_menu_name_from_slug( $menu_info->setting_name );
+						if ( !in_array( $menu_id, $rendered_menus ) ) {
+							$rendered_menus[] = $menu_id;
+							if ( $menu_id == 'none' ) continue;
+				?>
+					<option value="menu-<?php echo $menu_id; ?>"><?php echo $menus[ $menu_id ]; ?></option>
+				<?php
+						}
+					}
+				?>
+			</select>
+			<i class="wptouch-tooltip icon-info-sign" data-original-title="<?php _e( 'Active menus used in this theme.', 'wptouch-pro' ); ?>"></i>
 		</div>
 		<div id="menu-area">
 			<div class="context-info clearfix">
@@ -36,9 +48,9 @@
 					<?php } ?>
 				</div><!-- content -->
 			</div><!-- nano -->
-		</div>			
+		</div>
 	</div> <!-- right-area -->
-	
+
 	<div id="left-area" class="section">
 		<div class="header">
 			<?php _e( 'Icon Set', 'wptouch-pro' ); ?>
@@ -53,13 +65,13 @@
 		<div class="context-info clearfix">
 			<center><?php _e( 'Drag icons to associate them with menu items', 'wptouch-pro' ); ?></center>
 		</div>
-			
+
 		<?php while ( wptouch_have_icon_packs() ) { ?>
 			<?php wptouch_the_icon_pack(); ?>
-			<div class="pack" id="pack-<?php echo wptouch_get_icon_pack_class_name(); ?>">	
+			<div class="pack" id="pack-<?php echo wptouch_get_icon_pack_class_name(); ?>">
 			  	<div class="nano">
 	  				<div class="content">
-					<?php if ( wptouch_have_icons( wptouch_get_icon_pack_name() ) ) { ?>		
+					<?php if ( wptouch_have_icons( wptouch_get_icon_pack_name() ) ) { ?>
 						<ul>
 						<?php while ( wptouch_have_icons( wptouch_get_icon_pack_name() ) ) { ?>
 							<?php wptouch_the_icon(); ?>
@@ -82,7 +94,7 @@
 					</div><!-- content -->
 				</div><!-- nano -->
 			</div>
-		<?php } ?>		
+		<?php } ?>
 	</div> <!-- left-area -->
 </div> <!-- pack set menu area -->
 
@@ -95,7 +107,7 @@
 					<span class="text">(<?php _e( 'applies to all unset icons', 'wptouch-pro' ); ?>)</span>
 				</span>
 		</div>
-	</div>				
+	</div>
 	<div id="trash-area">
 		<div class="drop-target">
 			<img src="<?php echo WPTOUCH_ADMIN_URL . '/images/filler.png'; ?>" alt="trash-icon" />
@@ -104,5 +116,5 @@
 				<span class="text">(<?php _e( 'drag icon here to reset', 'wptouch-pro' ); ?>)</span>
 			</span>
 		</div>
-	</div>				
+	</div>
 </div>

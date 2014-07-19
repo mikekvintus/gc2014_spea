@@ -79,6 +79,7 @@ function wptouch_admin_handle_ajax( $wptouch_pro, $ajax_action ) {
 			echo wptouch_capture_include_file( WPTOUCH_DIR . '/admin/html/news.php' );
 			break;
 		case 'load-notifications':
+		case 'load-notifications-plugin':
 			wptouch_notification_setup();
 
 			$result = array();
@@ -87,6 +88,7 @@ function wptouch_admin_handle_ajax( $wptouch_pro, $ajax_action ) {
 
 			echo json_encode( $result );
 			break;
+
 		case 'dismiss-notification':
 			wptouch_notification_setup();
 
@@ -133,13 +135,21 @@ function wptouch_admin_handle_ajax( $wptouch_pro, $ajax_action ) {
 			if ( defined( 'WPTOUCH_IS_FREE' ) ) {
 				$content = wp_remote_get( 'http://wptouch-pro-3.s3.amazonaws.com/WPtouchBoard/free/page.xhtml' );
 			} else {
-				$content = wp_remote_get( 'http://wptouch-pro-3.s3.amazonaws.com/WPtouchBoard/pro/page.xhtml' );
+				$content = wp_remote_get( 'http://wptouch-pro-3.s3.amazonaws.com/WPtouchBoard/pro/3.4/page.xhtml' );
 			}
-			
+
 			if ( !is_wp_error( $content ) ) {
-				echo $content['body'];	
+				echo $content['body'];
 			}
-			
+
+			break;
+		case 'load-upgrade-area':
+			$content = wp_remote_get( 'http://wptouch-pro-3.s3.amazonaws.com/WPtouchBoard/upgrade/page.xhtml' );
+
+			if ( !is_wp_error( $content ) ) {
+				echo $content['body'];
+			}
+
 			break;
 		case 'download-icon-set':
 			global $wptouch_pro;
@@ -155,7 +165,7 @@ function wptouch_admin_handle_ajax( $wptouch_pro, $ajax_action ) {
 				echo '0';
 			}
 
-			break;													
+			break;
 		case 'get-icon-set-info':
 			require_once( WPTOUCH_DIR . '/core/admin-icons.php' );
 
@@ -167,7 +177,7 @@ function wptouch_admin_handle_ajax( $wptouch_pro, $ajax_action ) {
 			} else {
 				$change_log = wp_remote_get( 'http://plugins.svn.wordpress.org/wptouch/trunk/readme.txt' );
 			}
-			
+
 			if ( !is_wp_error( $change_log ) ) {
 
 				$content = $change_log[ 'body' ];

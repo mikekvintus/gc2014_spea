@@ -1,6 +1,6 @@
 <?php
 
-define( 'FOUNDATION_VERSION', '2.0' );
+define( 'FOUNDATION_VERSION', '2.1' );
 
 define( 'FOUNDATION_DIR', WPTOUCH_DIR . '/themes/foundation' );
 define( 'FOUNDATION_URL', WPTOUCH_URL . '/themes/foundation' );
@@ -23,7 +23,7 @@ add_filter( 'wptouch_admin_page_render_wptouch-admin-theme-settings', 'foundatio
 add_filter( 'wptouch_setting_version_compare', 'foundation_setting_version_compare', 10, 2 );
 add_filter( 'wptouch_body_classes', 'foundation_body_classes' );
 add_filter( 'wptouch_the_content', 'foundation_insert_multipage_links');
-add_filter( 'wp_die_handler', 'foundation_custom_die_handler' );
+//add_filter( 'wp_die_handler', 'foundation_custom_die_handler' );
 
 add_action( 'wptouch_post_head', 'foundation_setup_smart_app_banner' );
 add_action( 'wptouch_post_head', 'foundation_setup_viewport' );
@@ -34,6 +34,32 @@ add_filter( 'pre_get_posts', 'foundation_exclude_categories_tags' );
 add_action( 'wptouch_pre_footer', 'foundation_handle_footer' );
 add_action( 'wptouch_parent_style_queued', 'foundation_enqueue_color_data' );
 add_action( 'wptouch_post_process_image_file', 'foundation_process_image_file', 10, 2 );
+
+add_action( 'wptouch_language_insert', 'foundation_add_wpml_lang_switcher', 20 );
+
+function foundation_add_wpml_lang_switcher() {
+	$settings = wptouch_get_settings();
+
+	// Check admin panel setting
+	if ( $settings->show_wpml_lang_switcher ) {
+		if ( function_exists( 'icl_get_languages' ) ) {
+			$data = icl_get_languages( 'skip_missing=N&orderby=KEY&order=DIR&link_empty_to=str' );
+			if ( $data ) {
+				echo '<div id="wpml-language-chooser-wrap"><div id="wpml-language-chooser">';
+				echo '<strong>' . __( 'Language: ', 'wptouch-pro' ) . '</strong>';
+				echo '<select>';
+				foreach( $data as $lang => $item ) {
+					echo '<option value="' . $item['url'] . '"';
+					if ( $item["active"] ) echo " selected";
+					echo '>' . $item['native_name'] . '</option>';
+				}
+				echo '</select>';
+				echo '</div></div>';
+			}
+		}
+	}
+
+}
 
 function foundation_setting_domain( $domains ) {
 	$domains[] = FOUNDATION_SETTING_DOMAIN;
@@ -93,8 +119,8 @@ function foundation_setting_defaults( $settings ) {
 	$settings->logo_image = '';
 
 	// Login
-	$settings->show_login_box = false;	
-	$settings->show_login_links = false;	
+	$settings->show_login_box = false;
+	$settings->show_login_links = false;
 
 	// Branding
 	$settings->typography_sets = 'default';
@@ -146,12 +172,14 @@ function foundation_setting_defaults( $settings ) {
 	$settings->social_facebook_url = '';
 	$settings->social_twitter_url = '';
 	$settings->social_google_url = '';
+	$settings->social_instagram_url = '';
+	$settings->social_tumblr_url = '';
 	$settings->social_pinterest_url = '';
 	$settings->social_vimeo_url = '';
+	$settings->social_youtube_url = '';
 	$settings->social_linkedin_url = '';
 	$settings->social_email_url = '';
 	$settings->social_rss_url = '';
-	$settings->social_youtube_url = '';
 
 	// Custom Content
 	$settings->custom_footer_message = '';
@@ -161,7 +189,7 @@ function foundation_setting_defaults( $settings ) {
 	$settings->featured_autoslide = false;
 	$settings->featured_continuous = false;
 	$settings->featured_grayscale = false;
-	$settings->featured_title_date = true;	
+	$settings->featured_title_date = true;
 	$settings->featured_type = 'latest';
 	$settings->featured_tag = '';
 	$settings->featured_category = '';
@@ -225,7 +253,7 @@ function foundation_enqueue_color_data() {
 				$inline_color_data .= $color->bg_selectors . " { background-color: " . $settings->$setting_name . "; }\n";
 			}
 		}
-		wp_add_inline_style( 'wptouch-parent', $inline_color_data );
+		wp_add_inline_style( 'wptouch-parent-theme-css', $inline_color_data );
 	}
 }
 
@@ -250,7 +278,7 @@ function foundation_get_settings() {
 }
 
 function foundation_posts_per_page( $query ) {
-	if ( wptouch_is_showing_mobile_theme_on_mobile_device() && ( $query->is_home() || is_archive() ) ) {
+	if ( wptouch_is_showing_mobile_theme_on_mobile_device() && $query->is_main_query() && ( $query->is_home() || is_archive() ) ) {
 		$settings = foundation_get_settings();
 
 		set_query_var( 'posts_per_page', $settings->posts_per_page );
@@ -266,7 +294,13 @@ function foundation_is_theme_using_module( $module_name ) {
 function foundation_get_tag_list() {
 	$all_tags = array();
 
-	$tags = get_tags();
+	$tags = get_tags(
+		array(
+			'number' => 50,
+			'orderby' => 'count'
+		)
+	);
+
 	foreach( $tags as $tag ) {
 		$all_tags[ $tag->slug ] = $tag->name;
 	}
@@ -277,7 +311,13 @@ function foundation_get_tag_list() {
 function foundation_get_category_list() {
 	$all_cats = array();
 
-	$categories = get_categories();
+	$categories = get_categories(
+		array(
+			'number' => 50,
+			'orderby' => 'count'
+		)
+	);
+
 	foreach( $categories as $cat ) {
 		$all_cats[ $cat->slug ] = $cat->name;
 	}
@@ -341,8 +381,8 @@ function foundation_render_theme_settings( $page_options ) {
 			__( 'Overrides the WordPress settings for showing comments on pages.', 'wptouch-pro' ),
 			WPTOUCH_SETTING_BASIC,
 			'1.0'
-		)	
-	);	
+		)
+	);
 
 	$foundation_page_settings = apply_filters( 'foundation_settings_pages', $foundation_page_settings );
 
@@ -441,21 +481,24 @@ function foundation_render_theme_settings( $page_options ) {
 		);
 	}
 
+	$foundation_logo_settings = array(
+		wptouch_add_setting(
+			'image-upload',
+			'logo_image',
+			__( '(Scaled by themes to fit logo areas as needed)', 'wptouch-pro' ),
+			'',
+			WPTOUCH_SETTING_BASIC,
+			'1.0'
+		)
+	);
+
+	$foundation_logo_settings = apply_filters( 'foundation_settings_logo', $foundation_logo_settings );
+
 	wptouch_add_page_section(
 		FOUNDATION_PAGE_BRANDING,
 		__( 'Site Logo', 'wptouch-pro' ),
 		'foundation-logo',
-		array(
-			wptouch_add_setting(
-				'image-upload',
-				'logo_image',
-				__( '(Scaled by themes to fit logo areas as needed)', 'wptouch-pro' ),
-				'',
-				WPTOUCH_SETTING_BASIC,
-				'1.0'
-			)
-		),
-
+		$foundation_logo_settings,
 		$page_options,
 		FOUNDATION_SETTING_DOMAIN
 	);
@@ -478,7 +521,7 @@ function foundation_render_theme_settings( $page_options ) {
 		$page_options,
 		FOUNDATION_SETTING_DOMAIN
 	);
-	
+
 	wptouch_add_page_section(
 		FOUNDATION_PAGE_BRANDING,
 		__( 'Theme Footer', 'wptouch-pro' ),
@@ -512,6 +555,8 @@ function foundation_maybe_output_homescreen_icon( $image, $width, $height, $pixe
 
 function foundation_setup_homescreen_icons() {
 	$settings = foundation_get_settings();
+	$has_icon = $settings->android_others_icon;
+
 	if ( wptouch_is_device_real_ipad() ) {
 		// Default (if no icon added in admin, or icon isn't formatted correctly, and as a catch-all)
 		echo '<link rel="apple-touch-icon-precomposed" href="' . WPTOUCH_DEFAULT_HOMESCREEN_ICON . '" />' . "\n";
@@ -520,15 +565,16 @@ function foundation_setup_homescreen_icons() {
 		foundation_maybe_output_homescreen_icon( $settings->ipad_icon_retina, 144, 144, 2 );
 		foundation_maybe_output_homescreen_icon( $settings->ipad_icon_retina, 57, 57, 1 );
 	} else {
-		// Default (if no icon added in admin, or icon isn't formatted correctly, and as a catch-all)
-		echo '<link rel="apple-touch-icon-precomposed" href="' . WPTOUCH_DEFAULT_HOMESCREEN_ICON . '" />' . "\n";
 		// iPhone / Android home screen icons
 		foundation_maybe_output_homescreen_icon( $settings->iphone_icon_retina, 120, 120, 2 );
 		foundation_maybe_output_homescreen_icon( $settings->iphone_icon_retina, 114, 114, 2 );
 		foundation_maybe_output_homescreen_icon( $settings->android_others_icon, 57, 57, 1 );
+
+		// Default (if no icon added in admin, or icon isn't formatted correctly, and as a catch-all)
+		if ( !$has_icon ) {
+			echo '<link rel="apple-touch-icon-precomposed" href="' . WPTOUCH_DEFAULT_HOMESCREEN_ICON . '" />' . "\n";
+		}
 	}
-
-
 }
 
 function foundation_setup_smart_app_banner(){
@@ -587,21 +633,27 @@ function foundation_load_theme_modules() {
 		foreach( $theme_data->theme_support as $module ) {
 
 			$bootstrap_file = dirname( __FILE__ ) . '/modules/' . $module . '/' . $module . '.php';
+			$defined_name = 'WPTOUCH_MODULE_' . str_replace( '-', '_', strtoupper( $module ) ) . '_INSTALLED';
 
 			if ( file_exists( $bootstrap_file ) ) {
 				// Load the main bootstrap file
 				require_once( $bootstrap_file );
 
-				$defined_name = 'WPTOUCH_MODULE_' . str_replace( '-', '_', strtoupper( $module ) ) . '_INSTALLED';
 				define( $defined_name, '1' );
-			} else if ( !defined( 'WPTOUCH_IS_FREE' ) ) {
+			}
+
+			if ( !defined( 'WPTOUCH_IS_FREE' ) ) {
+				// Pro version
 				$alternate_location = WPTOUCH_DIR . '/pro/modules/' . $module . '/' . $module . '.php';
 
-				require_once( $alternate_location );
+				if ( file_exists( $alternate_location ) ) {
+					require_once( $alternate_location );
 
-				$defined_name = 'WPTOUCH_MODULE_' . str_replace( '-', '_', strtoupper( $module ) ) . '_INSTALLED';
-				define( $defined_name, '1' );				
-			}
+					if ( !defined( $defined_name ) ) {
+						define( $defined_name, '1' );
+					}
+				}
+ 			}
 		}
 
 		// Force settings to be reloaded
@@ -641,6 +693,9 @@ function foundation_add_theme_support( $theme_support ) {
 }
 
 function foundation_body_classes( $classes ) {
+	global $wptouch_pro;
+	$global_settings = $wptouch_pro->get_settings();
+
 	$settings = foundation_get_settings();
 
 	if ( $settings->video_handling_type != 'none' ) {
@@ -666,24 +721,26 @@ function foundation_body_classes( $classes ) {
 			$classes[] = 'landscape';
 		}
 	}
-	
+
 	// iOS Device
 	if ( strpos( $_SERVER['HTTP_USER_AGENT'],'iPhone' ) || strpos( $_SERVER['HTTP_USER_AGENT'],'iPod' ) || strpos( $_SERVER['HTTP_USER_AGENT'],'iPad' ) ) {
-			$classes[] = 'ios';		
+			$classes[] = 'ios';
 	}
 
 	// Android Device
 	if ( strpos( $_SERVER['HTTP_USER_AGENT'],'Android' ) ) {
-			$classes[] = 'android';		
+			$classes[] = 'android';
 	}
-	
+
 	if ( wptouch_should_load_rtl() ) {
 		$classes[] = 'rtl';
 	}
-	
+
 	if ( wptouch_fdn_iOS_7() ) {
-		$classes[] = 'ios7';		
+		$classes[] = 'ios7';
 	}
+
+	$classes[] = 'theme-' . $global_settings->current_theme_name;
 
 	return $classes;
 }
@@ -727,14 +784,21 @@ function foundation_get_theme_colors() {
 /////* Foundation Functions (can be used by all child themes) */////
 
 /*
-If we're on iOS5 or iOS6.
-
-We'll setup media queries for client side detection of
-css features for fixed positioning ( -webkit-overflow-scrolling ),
-but if server-side iOS5/6 detection is needed, it's here  :)
+If we're on iOS7
 */
 function wptouch_fdn_iOS_7() {
 	if ( strpos( $_SERVER['HTTP_USER_AGENT'],'iPhone OS 7_' ) ) {
+		return true;
+	} else {
+		return false;
+	}
+}
+
+/*
+If we're on iOS8
+*/
+function wptouch_fdn_iOS_8() {
+	if ( strpos( $_SERVER['HTTP_USER_AGENT'],'iPhone OS 8_' ) ) {
 		return true;
 	} else {
 		return false;
@@ -746,10 +810,10 @@ If we're on iOS5+
 
 We'll setup media queries for client side detection of
 css features for fixed positioning ( -webkit-overflow-scrolling ),
-but if server-side iOS5/6 detection is needed, it's here  :)
+but if server-side detection is needed, it's here  :)
 */
 function wptouch_fdn_iOS_5_or_higher() {
-	if ( strpos( $_SERVER['HTTP_USER_AGENT'],'iPhone OS 5_' ) || strpos( $_SERVER['HTTP_USER_AGENT'],'iPhone OS 6_' ) || strpos( $_SERVER['HTTP_USER_AGENT'],'iPhone OS 7_' ) ) {
+	if ( strpos( $_SERVER['HTTP_USER_AGENT'],'iPhone OS 5_' ) || strpos( $_SERVER['HTTP_USER_AGENT'],'iPhone OS 6_' ) || strpos( $_SERVER['HTTP_USER_AGENT'],'iPhone OS 7_' ) || strpos( $_SERVER['HTTP_USER_AGENT'],'iPhone OS 8_' ) ) {
 		return true;
 	} else {
 		return false;
@@ -785,36 +849,32 @@ function wptouch_fdn_comments_pagination() {
 
 /* Previous + Next Post Functions For Single Post Pages */
 function wptouch_fdn_get_previous_post_link() {
-	$settings = foundation_get_settings();
-
-	$prev_post = get_adjacent_post( false, $settings->excluded_categories, true );
+	$excluded = wptouch_fdn_convert_catname_to_id();
+	$prev_post = get_adjacent_post( false, $excluded, true );
 	echo get_permalink( $prev_post->ID );
 }
 
 function wptouch_fdn_get_next_post_link() {
-	$settings = foundation_get_settings();
-
-	$next_post = get_adjacent_post( false, $settings->excluded_categories, false );
+	$excluded = wptouch_fdn_convert_catname_to_id();
+	$next_post = get_adjacent_post( false, $excluded, false );
 	echo get_permalink( $next_post->ID );
 }
 
 function wptouch_fdn_get_previous_post_link_w_title() {
-	$settings = foundation_get_settings();
-
-	$prev_post = get_adjacent_post( false, $settings->excluded_categories, true );
+	$excluded = wptouch_fdn_convert_catname_to_id();
+	$prev_post = get_adjacent_post( false, $excluded, true );
 	echo '<a class="prev-post" href="' . get_permalink( $prev_post->ID ) . '">' . $prev_post->post_title . '</a>';
 }
 
 function wptouch_fdn_get_next_post_link_w_title() {
-	$settings = foundation_get_settings();
-
-	$next_post = get_adjacent_post( false, $settings->excluded_categories, false );
+	$excluded = wptouch_fdn_convert_catname_to_id();
+	$next_post = get_adjacent_post( false, $excluded, false );
 	echo '<a class="next-post" href="' . get_permalink( $next_post->ID ) . '">' . $next_post->post_title . '</a>';
 }
 
 function wptouch_fdn_if_next_post_link(){
-	$settings = foundation_get_settings();
-	$next_post = get_adjacent_post( false, $settings->excluded_categories, false );
+	$excluded = wptouch_fdn_convert_catname_to_id();
+	$next_post = get_adjacent_post( false, $excluded, false );
 
 	if ( $next_post ) {
 		return true;
@@ -824,8 +884,8 @@ function wptouch_fdn_if_next_post_link(){
 }
 
 function wptouch_fdn_if_previous_post_link(){
-	$settings = foundation_get_settings();
-	$prev_post = get_adjacent_post( false, $settings->excluded_categories, true );
+	$excluded = wptouch_fdn_convert_catname_to_id();
+	$prev_post = get_adjacent_post( false, $excluded, true );
 
 	if ( $prev_post ) {
 		return true;
@@ -894,12 +954,13 @@ function wptouch_fdn_archive_load_more_text() {
 	}
 }
 
-function wptouch_fdn_ordered_cat_list( $num, $include_count = true ) {
+function wptouch_fdn_ordered_cat_list( $num, $include_count = true, $taxonomy = 'category'  ) {
 	global $wpdb;
 
 	$settings = wptouch_get_settings( 'foundation' );
 
 	$excluded_cats = 0;
+
 	if ( $settings->excluded_categories ) {
 		$new_cats = _foundation_explode_and_trim_taxonomy( $settings->excluded_categories, 'category' );
 
@@ -909,12 +970,18 @@ function wptouch_fdn_ordered_cat_list( $num, $include_count = true ) {
 	}
 
 	echo '<ul>';
-	$sql = $wpdb->get_results("SELECT * FROM {$wpdb->prefix}term_taxonomy INNER JOIN {$wpdb->prefix}terms ON {$wpdb->prefix}term_taxonomy.term_id = {$wpdb->prefix}terms.term_id WHERE taxonomy = 'category' AND {$wpdb->prefix}term_taxonomy.term_id NOT IN ($excluded_cats) AND count >= 1 ORDER BY count DESC LIMIT 0, $num");
+	$sql = $wpdb->get_results("SELECT * FROM {$wpdb->prefix}term_taxonomy INNER JOIN {$wpdb->prefix}terms ON {$wpdb->prefix}term_taxonomy.term_id = {$wpdb->prefix}terms.term_id WHERE taxonomy = '{$taxonomy}' AND {$wpdb->prefix}term_taxonomy.term_id NOT IN ($excluded_cats) AND count >= 1 ORDER BY count DESC LIMIT 0, $num");
 
 	if ( $sql ) {
 		foreach ( $sql as $result ) {
 			if ( $result ) {
-				echo "<li><a href=\"" . get_category_link( $result->term_id ) . "\">" . $result->name;
+				$link = get_term_link( (int) $result->term_id, $taxonomy );
+
+				if ( is_wp_error( $link ) ) {
+					continue;
+				}
+
+				echo "<li><a href=\"" . $link . "\">" . $result->name;
 
 				if ( $include_count ) {
 					echo " <span>(" . $result->count . ")</span></a>";
@@ -934,6 +1001,7 @@ function wptouch_fdn_ordered_tag_list( $num ) {
 	$settings = wptouch_get_settings( 'foundation' );
 
 	$excluded_tags = 0;
+
 	if ( $settings->excluded_tags ) {
 		$new_tags = _foundation_explode_and_trim_taxonomy( $settings->excluded_tags, 'post_tag' );
 
@@ -965,6 +1033,48 @@ function wptouch_fdn_display_comment( $comment, $args, $depth ) {
 
 function wptouch_fdn_get_search_post_types() {
 	return apply_filters( 'foundation_search_post_types', array( 'post', 'page' ) );
+}
+
+function wptouch_fdn_convert_catname_to_id(){
+	$settings = foundation_get_settings();
+	$cats = $settings->excluded_categories;
+
+	if ( $cats ) {
+		$cat_ids = explode( ',', $cats );
+		$new_cats_by_id = array();
+
+		foreach( $cat_ids as $cat ) {
+			$trimmed_cat = trim( $cat );
+			$new_cats_by_id[] = get_cat_ID( $trimmed_cat );
+		}
+
+		$new_cats_by_id_list = implode( ',', $new_cats_by_id );
+		return $new_cats_by_id_list;
+	} else {
+		return false;
+	}
+}
+
+function wptouch_fdn_convert_tagname_to_id(){
+	$settings = foundation_get_settings();
+	$tags = $settings->excluded_tags;
+
+	if ( $tags ) {
+		$tag_ids = explode( ',', $tags );
+		$new_tags_by_id = array();
+
+		foreach( $tag_ids as $tag ) {
+			$trimmed_tag = trim( $tag );
+			$tagname = get_term_by( 'name', $trimmed_tag, 'post_tag' );
+			$tagid = $tagname->term_id;
+			$new_tags_by_id[] = $tagid;
+		}
+
+		$new_tags_by_id_list = implode( ',', $new_tags_by_id );
+		return $new_tags_by_id_list;
+	} else {
+		return false;
+	}
 }
 
 function wptouch_fdn_get_search_post_type() {
@@ -1034,7 +1144,7 @@ function foundation_insert_multipage_links( $content ) {
 function foundation_number_of_posts_to_show() {
 	$settings = wptouch_get_settings( 'foundation' );
 	$num_posts = $settings->posts_per_page;
-	return $num_posts;	
+	return $num_posts;
 }
 
 
@@ -1050,11 +1160,13 @@ function foundation_inline_styles() {
 	}
 }
 
-function foundation_custom_die_handler() {
+function foundation_custom_die_handler( $function ) {
 	$error_template = FOUNDATION_DIR . '/default/formerror.php';
 
 	if ( !is_admin() && file_exists( $error_template ) ) {
 			require_once( $error_template );
 			die();
 	}
+
+	return $function;
 }

@@ -4,7 +4,7 @@ add_filter( 'wptouch_should_init_pro', 'wptouch_check_for_initialization' );
 
 // ManageWP
 add_filter( 'mwp_premium_update_notification', 'wptouch_mwp_update_notification' );
-add_filter( 'mwp_premium_perform_update', 'wptouch_mwp_perform_update' );	
+add_filter( 'mwp_premium_perform_update', 'wptouch_mwp_perform_update' );
 
 add_filter( 'plugins_loaded', 'wptouch_compat_remove_hooks' );
 
@@ -19,7 +19,7 @@ function wptouch_compat_remove_hooks() {
 
 	// qTranslate
 	if ( function_exists( 'qtrans_useCurrentLanguageIfNotFoundShowAvailable' ) ) {
-		add_filter( 'wptouch_menu_item_title', 'qtrans_useCurrentLanguageIfNotFoundShowAvailable', 0 );	
+		add_filter( 'wptouch_menu_item_title', 'qtrans_useCurrentLanguageIfNotFoundShowAvailable', 0 );
 	}
 
 	// Facebook Like button
@@ -45,9 +45,9 @@ function wptouch_check_for_initialization( $should_init ) {
 	// Check for AJAX requests
 	if ( defined( 'XMLRPC_REQUEST' ) || defined( 'APP_REQUEST'  ) ) {
 		$should_init = false;
-	}	
+	}
 
-	return $should_init;	
+	return $should_init;
 }
 
 function wptouch_mwp_update_notification( $premium_updates ) {
@@ -56,24 +56,28 @@ function wptouch_mwp_update_notification( $premium_updates ) {
 	if( !function_exists( 'get_plugin_data' ) ) {
 		include_once( ABSPATH.'wp-admin/includes/plugin.php');
 	}
-		
-	$myplugin = get_plugin_data( WPTOUCH_DIR . '/wptouch-pro-3.php' );  
+
+	if ( !function_exists( 'mwp_wptouch_pro_get_latest_info' ) ) {
+		return;
+	}
+
+	$myplugin = get_plugin_data( WPTOUCH_DIR . '/wptouch-pro-3.php' );
 	$myplugin['type'] = 'plugin';
-	
-	$latest_info = $wptouch_pro->mwp_get_latest_info();
-	if ( $latest_info ) {		
+
+	$latest_info = mwp_wptouch_pro_get_latest_info();
+	if ( $latest_info ) {
 		// Check to see if a new version is available
 		if ( $latest_info['version'] != WPTOUCH_VERSION ) {
 			$myplugin['new_version'] = $latest_info['version'];
-			
+
 			array_push( $premium_updates, $myplugin ) ;
-			
+
 			$wptouch_pro->remove_transient_info();
 		}
 	}
-	
+
 	return $premium_updates;
-}	
+}
 
 function wptouch_mwp_perform_update( $update ){
 	global $wptouch_pro;
@@ -81,19 +85,23 @@ function wptouch_mwp_perform_update( $update ){
 	if( !function_exists( 'get_plugin_data' ) ) {
 		include_once( ABSPATH.'wp-admin/includes/plugin.php');
 	}
-		
-	$my_addon = get_plugin_data(  WPTOUCH_DIR . '/wptouch-pro-3.php' );  	
+
+	if ( !function_exists( 'mwp_wptouch_pro_get_latest_info' ) ) {
+		return;
+	}
+
+	$my_addon = get_plugin_data(  WPTOUCH_DIR . '/wptouch-pro-3.php' );
 	$my_addon[ 'type' ] = 'plugin';
-	
-	$latest_info = $wptouch_pro->mwp_get_latest_info();
+
+	$latest_info = mwp_wptouch_pro_get_latest_info();
 	if ( $latest_info ) {
 		// Check for a new version
 		if ( $latest_info['version'] != WPTOUCH_VERSION ) {
 			$my_addon['url'] = $latest_info['upgrade_url'];
-			
+
 			array_push( $update, $my_addon );
 		}
 	}
-	
+
 	return $update;
-}	
+}

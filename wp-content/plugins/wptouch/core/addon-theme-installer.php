@@ -45,7 +45,7 @@ class WPtouchAddonThemeInstaller {
 	private function add_error( $desc ) {
 		$this->had_error = true;
 		$this->error_text = $desc;
-	}	
+	}
 
 	private function download_method() {
 		if ( $this->supports_curl_download() && ( $this->force_use_curl || !$this->supports_url_download() ) ) {
@@ -61,11 +61,11 @@ class WPtouchAddonThemeInstaller {
 		$destination_dir = WPTOUCH_BASE_CONTENT_DIR . '/' . $path;
 
 		return is_writable( $destination_dir );
-	}	
+	}
 
 	private function can_unzip() {
 		return $this->supports_zip() || $this->supports_pclzip();
-	}	
+	}
 
 	private function unzip_file( $file_name, $destination ) {
 		if ( class_exists( 'ZipArchive' ) && !$this->force_use_pclzip ) {
@@ -138,7 +138,7 @@ class WPtouchAddonThemeInstaller {
 				}
 
 				fclose( $source_file );
-			}		
+			}
 		}
 
 		return false;
@@ -170,7 +170,7 @@ class WPtouchAddonThemeInstaller {
 		if ( !$this->can_unzip() ) {
 			$this->add_error( __( "No server support for unzipping files.", "wptouch-pro" ) );
 			return false;
-		}		
+		}
 
 		$file_name = $this->download_file( $package, WPTOUCH_BASE_CONTENT_DIR . '/' . $path );
 		if ( $file_name ) {

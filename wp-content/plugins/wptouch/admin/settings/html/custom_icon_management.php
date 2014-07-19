@@ -4,7 +4,7 @@
 	<?php } else { ?>
 		<?php while ( wptouch_have_custom_icons() ) { ?>
 			<?php wptouch_the_custom_icon(); ?>
-	
+
 			<li class="custom-icon">
 				<img src="<?php wptouch_the_custom_icon_image(); ?>" alt="<?php wptouch_the_custom_icon_name(); ?>" />
 				<p class="name" data-name="<?php wptouch_the_custom_icon_name(); ?>">

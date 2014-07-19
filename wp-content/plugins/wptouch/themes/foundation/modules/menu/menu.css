@@ -1,3 +1,5 @@
+/* @override http://wptp3.local.com/wp-content/plugins/wptouch-pro-3/themes/foundation/modules/menu/menu.css?ver=2.0.4 */
+
 /* Default WPtouch Pages Menu Styling */
 
 .wptouch-menu .menu-tree a, .wptouch-menu .menu-tree span {
@@ -15,13 +17,16 @@
 	line-height: 100%;
 }
 
-.menu-tree ul {
+.wptouch-menu ul ul {
 	display: none;
 }
 
 .menu-tree li span {
 	-webkit-transition-duration: 300ms;
+	-o-transition-duration: 300ms;
+	transition-duration: 300ms;
 	display: block;
+	-webkit-box-shadow: inset rgba(0,0,0,.15) 1px 0px 0px;
 	box-shadow: inset rgba(0,0,0,.15) 1px 0px 0px;
 	border-left: 1px solid rgba(255,255,255,.1);
 	padding: 15px;
@@ -29,6 +34,7 @@
 }
 
 .menu-tree li span.toggle {
+	-webkit-box-shadow: inset rgba(0,0,0,.2) 0px 4px 4px;
 	box-shadow: inset rgba(0,0,0,.2) 0px 4px 4px;
 	border: none;
 }
@@ -44,12 +50,9 @@
 	font-style: normal;
 }
 
-.menu-tree ul span  {
-	display: none;
-}
-
-ul.menu-tree.no-parent-links span {
+ul.menu-tree.no-parent-links span, ul.menu-tree ul span {
 	border: none;
+	-webkit-box-shadow: none;
 	box-shadow: none;
 }
 
@@ -77,6 +80,7 @@ ul.menu-tree.no-parent-links span {
 
 .menu-tree > .open-tree {
 	background: rgba(0,0,0,.03);
+	-webkit-box-shadow: inset rgba(0,0,0,.25) 0px 0px 4px;
 	box-shadow: inset rgba(0,0,0,.25) 0px 0px 4px;
 	border-top-color: rgba(0,0,0,.2);
 	margin-top: -1px;
@@ -85,10 +89,6 @@ ul.menu-tree.no-parent-links span {
 
 .menu-tree li.no-icon {
 	padding-left: 10px;
-}
-
-.menu-tree ul ul  {
-	display: block;
 }
 
 .menu-tree ul li {
@@ -100,15 +100,19 @@ ul.menu-tree.no-parent-links span {
 
 .rtl .menu-tree li span {
 	-webkit-transition-duration: 300ms;
+	-o-transition-duration: 300ms;
+	transition-duration: 300ms;
 	float: left;
+	-webkit-box-shadow: inset rgba(0,0,0,.15) -1px 0px 0px;
 	box-shadow: inset rgba(0,0,0,.15) -1px 0px 0px;
 	border-right: 1px solid rgba(255,255,255,.1);
 	border-left: none;
 }
 
 .rtl .menu-tree li span.toggle {
+	-webkit-box-shadow: inset rgba(0,0,0,.2) 0px 4px 4px;
 	box-shadow: inset rgba(0,0,0,.2) 0px 4px 4px;
-	border: none;	
+	border: none;
 }
 
 .rtl .menu-tree li.menu-item img {
@@ -117,7 +121,7 @@ ul.menu-tree.no-parent-links span {
 
 .rtl .menu-tree li.menu-item a {
 	padding-left: 32px;
-	padding-right: 0px;	
+	padding-right: 0px;
 }
 
 .rtl .menu-tree li.no-icon {
@@ -125,7 +129,7 @@ ul.menu-tree.no-parent-links span {
 }
 
 .rtl .menu-tree ul li {
-	padding-left: 0px;	
+	padding-left: 0px;
 	padding-right: 15px;
 }
 
