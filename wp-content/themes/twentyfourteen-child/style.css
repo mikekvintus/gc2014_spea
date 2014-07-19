@@ -91,6 +91,14 @@ hyphens:none;
 
 /* BUTTONS */
 
+.search-toggle{
+background-color:#5b8ddb;
+}
+
+button.menu-toggle{
+background-color:#5b8ddb;
+}
+
 button{
 background-color:#5b8ddb;
 border:3px solid #5b8ddb;
