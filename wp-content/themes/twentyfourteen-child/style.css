@@ -18,36 +18,54 @@ p{
 
 }
 
-button.lg{
+.entry-header{
+background-color: #5b8ddb;
+padding:1.5em 0;
+}
+
+h1.entry-title{
 color:white;
-background-color:#5b8ddb;
-border:none;
-border-radius:4px;
-margin:0.2em 1%;
-padding:1em 0;
 text-align: center;
-width: 98%;
+font-family: 'Helvetica',sans-serif;
+font-weight: 400;
+line-height: 0.9em
+}
+
+h1.page-lead-in{
+color:#626262;
+font-family: 'Helvetica',sans-serif;
+font-weight: 400;
+line-height: 0.9em
+}
+
+h1.page-section-head{
+font-family: 'Helvetica',sans-serif;
+font-size:1.5em;
 }
 
 h2.faq-q
 {
+background-color: #f9f9f9;
+border-left:2px solid #e0e0e0;
 color:#4c4c4c;
 font-family: 'Georgia';
 font-size: 1.2em;
 font-style: italic;
 font-weight: 400;
 line-height: 1.2em;
-padding:0 1em 0 0;
+margin:0 0 0 0;
+padding:1em 0em 1em 1em;
 }
 
 p.faq-a
 {
-border-bottom:1px solid gray;	
+border-bottom:1px solid #dddada;	
 color:#4e4545;
 font-size: 1em;
 font-style: italic;
 font-weight: 400;
 line-height: 1.5em;
 margin:1em 0 0 0;
-padding:0 0 3em 0;
+padding:0 0 3em 1em;
 }
+
