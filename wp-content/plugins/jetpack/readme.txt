@@ -1,9 +1,9 @@
 === Jetpack by WordPress.com ===
-Contributors: automattic, alternatekev, andy, apeatling, azaozz, barry, beaulebens, blobaugh, cfinke, chellycat, danielbachhuber, daniloercoli, designsimply, eoigal, ethitter, gibrown, georgestephanis, hew, hugobaeta, iammattthomas, jblz, jeherve, jkudish, Joen, johnjamesjacoby, jshreve, lancewillett, martinremy, matt, matveb, mcsf, mdawaffe, migueluy, nickmomrik, obenland, pento, richardmtl, stephdau, tmoorewp, Viper007Bond, westi, yoavf
+Contributors: automattic, alternatekev, andy, apeatling, azaozz, barry, beaulebens, blobaugh, cfinke, chellycat, danielbachhuber, daniloercoli, designsimply, eoigal, ethitter, gibrown, georgestephanis, hew, hugobaeta, iammattthomas, jblz, jeherve, jkudish, Joen, johnjamesjacoby, jshreve, kraftbj, lancewillett, martinremy, matt, matveb, mcsf, mdawaffe, migueluy, nickmomrik, obenland, pento, richardmtl, stephdau, tmoorewp, Viper007Bond, westi, yoavf
 Tags: WordPress.com, statistics, stats, views, tweets, twitter, widget, gravatar, hovercards, profile, equations, latex, math, maths, youtube, shortcode, archives, audio, blip, bliptv, dailymotion, digg, flickr, googlevideo, google, googlemaps, kyte, kytetv, livevideo, redlasso, rockyou, rss, scribd, slide, slideshare, soundcloud, vimeo, shortlinks, wp.me, subscriptions, notifications, notes, json, api, rest, mosaic, gallery, slideshow, videopress, monitor, search, omnisearch, sso, jet pack
-Requires at least: 3.6
-Tested up to: 3.8
-Stable tag: 2.7.2
+Stable tag: 3.0.2
+Requires at least: 3.8
+Tested up to: 3.9.1
 
 Supercharge your WordPress site with powerful features previously only available to WordPress.com users.
 
@@ -44,8 +44,6 @@ Features include:
 * Sign in to your self-hosted WordPress site using your WordPress.com log-in credentials.
 * Jetpack Monitor will keep tabs on your site, and alert you the moment that downtime is detected.
 * and *many* more to come!
-
-Note: The stats portion of Jetpack uses Quantcast to enhance its data.
 
 == Installation ==
 
@@ -88,19 +86,132 @@ Learn more (and get detailed instructions) in our [contribute guide](http://jetp
 
 == Upgrade Notice ==
 
-= 2.7.2 =
-Jetpack 2.7.1 fixes a security bug, and 2.7.2 fixes a rare fatal error. Please upgrade immediately.
-
-= 2.7.1 =
-Jetpack 2.7.1 fixes a security bug. Please upgrade immediately.
+= 3.0 =
+Jetpack 3.0 is full of enhancements and bug fixes, including a new Administrative User Interface. Upgrade today!
 
 == Changelog ==
 
-= 2.7.2 =
-* Bug Fix: Avoid function which isn't always defined.
+= 3.0.2 =
+* Enhancement: General: Make module categories filter more visible when active.
+* Enhancement: General: Updated translation files with more strings added since the last release.
+* Enhancement: General: Allow deep-linking to the Contact Support form.
+* Bug Fix: General: RTL Jetpack Admin UI looks better.
+* Bug Fix: General: Fixed PHP warning when bulk deactivating modules.
+* Bug Fix: General: Removed an unnecessary description.
+* Bug Fix: General: Resolved an SSL error on Jetpack Admin UI.
+* Bug Fix: General: Fix error comparing signatures when the WordPress installation is using site_url filters (applied mostly to WPEngine sites).
+* Bug Fix: General: Resolved PHP strict error on the mobile menu.
+* Bug Fix: General: Fix timing of conditional checks, so that calling developer mode via a plugin works again.
+* Bug Fix: General: Main page categories tab now properly translates module names.
+* Bug Fix: Related Posts: Fix a typo, the "more info" link now works.
+* Bug Fix: Likes: Improve button styling.
+* Bug Fix: Likes: Remove unused UI for Reblog settings on social settings page.
+* Bug Fix: Contact Form: Updated to no longer use a deprecated Akismet function.
+* Bug Fix: Contact Form: Sends email to the administrator that is not marked as spam again.
+* Bug Fix: Open Graph: Resolved PHP warning on open graph gallery pages when the gallery is empty.
 
-= 2.7.1 =
+= 3.0.1 =
+* Bugfix: AtD: A wpcom-only function got synced by mistake and caused a few errors. Fixed.
+* Bugfix: Post By Email: Add static keyword to a function.
+* Bugfix: ShareDaddy: In the admin-side configuration of sharing links, we used a Path icon instead of Pinterest. Oops!
+* Bugfix: ShareDaddy: We inadvertently appended `via @jetpack` to some twitter shares. This is no longer the case.
+* Bugfix: Related Posts: Tidying up and relocation of the `resync` button formerly on the more info modal.
+* Bugfix: Infinite Scroll: Work better with core's MediaElement.js
+* Bugfix: Heartbeat: Undeclared variable fixed.
+
+= 3.0 =
+* New User Interface for managing modules and settings
+* New Module: Verfication Tools
+* Enhancement: New look for the Sharing module
+* Enhancement: Multiple improvements on which Twitter handle a Twitter card will display
+* Enhancement: Add option to hide Google+ Authorship banner while still receiving the benefits
+* Enhancement: Many Infinite Scroll enhancements to improve performance
+* Enhancement: Infinite Scroll will use your CPT's display name instead of "Older Posts"
+* Enhancement: JSON API added /media/new endpoint
+* Enhancement: Added filter to assign new default image for Open Graph tags
+* Enhancement: New [jetpack-related-posts] shortcode to add Related Posts to page instead of default placement
+* Enhancement: Added SSO option to turn off login form completely, to use WordPress.com login exclusively
+* Enhancement: The [googlemaps] shortcode allows for Google Maps Engine
+* Enhancement: YouTube shortcode allows HD playback
+* Enhancement: Smoother, Faster Tiled Galleries!
+* Enhancement: New languages! Use Jetpack in Irish, Fulah, and Tigrinya
+* Bugfix: Use your browser's Back and Forward buttons when naviagating a Carousel
+* Bugfix: Various Related Posts fixes and improvements for added flexibility
+* Bugfix: WordPress 3.9: Restores ability to edit Contact Forms
+* Bugfix: WordPress 3.9: Restores Gallery Widget compatability
+* Bugfix: Ensure Markdown is kept when Bulk Editing posts
+* Bugfix: Improved Jetpack's Multisite Network Admin page for networks with a large number of sites
+* Bugfix: Ensure Sharing settings persist when Bulk Editing a post
+* Bugfix: Various other shortcode improvements
+
+= 2.9.3 =
 * Important security update. CVE-2014-0173
+
+= 2.9.2 =
+* Bugfix: Publicize: When publishing from a mobile app or third-party client, Publicize now works again.
+
+= 2.9.1 =
+* Bugfix: After the Deadline: Fix a Javascript glitch that could prevent publishing of posts.
+* Bugfix: SSO: Disable the implementation of an option that had been removed before release.  This would have only been an issue if a site administrator had enabled the module during an early beta of 2.9.
+
+= 2.9 =
+* Added Multisite network functionality
+* New Module: Related Posts
+* Enhancement: Single Sign On
+* Enhancement: Mixcloud shortcode and oEmbed
+* Enhancement: Gist shortcode and oEmbed
+* Enhancement: Modify Facebook Like Box widget to support new Facebook parameters
+* Enhancement: Rolled the Push Notifications module into the Notes module
+* Enhancement: Update kses with Markdown
+* Enhancement: Adding keyboard accessibility to sharing buttons config page
+* Enhancement: Pull WordPress testing bits from the new official git mirror at WordPress.org
+* Bugfix: Widget Visibility
+* Bugfix: Revisions box in Custom CSS
+* Bugfix: Fix several bugs in the WordPress Posts Widget so that it correctly updates
+* Bugfix: Limit Login Attempts no longer generates false positives from xmlrpc.
+* Bugfix: Clear max_posts transient on theme switch.
+* Bugfix: Lower priority of sync to allow all CPTs to be registered.
+* Bugfix: Contact form fields emailed in correct order.
+
+* Other bugfixes and enhancements at https://github.com/Automattic/jetpack/commits/2.9
+
+= 2.8 =
+* New Module: Markdown
+* Module Update: Jetpack Monitor
+* Enhancement: Infinite Scroll: Keep track of $current_day between requests so the_date() works well.
+* Enhancement: Embeds: New filter to turn off embeds in comments.
+* Enhancement: Contact Form: Add placeholder support.
+* Enhancement: Widget: Gravatar Profile: Added filters to allow users to customize headings and fixed output of personal links.
+* Enhancement: Facebook OG Tags: Add `published_time`, `modified_time`, and `author` if the post type supports it.
+* Enhancement: Sharing: Display buttons on CPT archive pages.
+* Enhancement: Sharing: Add `get_share_title` function and filter.
+* Enhancement: Sharing: Add filter `sharing_display_link`.
+* Enhancement: Twitter Timeline: Flesh out tweet limit option.
+* Enhancement: Social Links: Add Google+ to the list of supported services.
+* Enhancement: Stats: Improve dashboard styles in 3.8.
+* Enhancement: Stats: No longer use Quantcast.
+* Enhancement: Top Posts: Add `jetpack_top_posts_days` filter.
+* Enhancement: AtD: Add TinyMCE 4 compatibility for its pending arrival in WordPress 3.9
+* Enhancement: Genericons: Update to v3.0.3
+* Enhancement: Tiled Galleries: Add alt attributes to images.
+* Enhancement: Shortcode: YouTube: Accept protocol-relative URLs.
+* Enhancement: Shortcode: Slideshow: Add white background option.
+* Enhancement: Shortcode: YouTube: Add support for the two closed-caption arguments.
+* Enhancement: Shortcode: Vimeo: Update the regex to support the new embed code.
+* Enhancement: Shortcode: Google Maps: Update the regex to handle new format for embeds.
+* Enhancement: Likes: Avoid a PHP Notice when $_POST['post_type'] is not set in meta_box_save.
+* Enhancement: Smush images to save on file size.
+* Enhancement: Publicize: Enable opt-in publicizing of custom post types.
+* Bug Fix: Random Redirect: Further namespace to avoid conflicts.
+* Bug Fix: Twitter Timeline: Resolve undefined index notice.
+* Bug Fix: Featured Content: Add extra class_exists() check to be extra careful.
+* Bug Fix: Facebook OG Tags: Change OG type of Home and Front Page to 'website'
+* Bug Fix: Widget Visibility: Add support for old-style single use widgets.
+* Bug Fix: Google Authorship: Support apostrophe in author names.
+* Bug Fix: Media Extractor: Assorted graceful failure caveats.
+* Bug Fix: Carousel: 'Link to None' bug fixed.
+* Bug Fix: Embeds: Bandcamp: Switch escaping function for album and track IDs to handle (int)s greater than PHP_INT_MAX
+* Bug Fix: Some plugins trying to catch brute-force attacks mistakenly flagged the Jetpack connection as one.
 
 = 2.7 =
 * Enhancement: Google+ Publicize
@@ -119,7 +230,7 @@ Jetpack 2.7.1 fixes a security bug. Please upgrade immediately.
 * Bug Fix: Sharing: Add new translation width for share button, and Google Plus icons
 * Bug Fix: Shortcodes: Support Ineternational Google domains for maps
 * Bug Fix: Shortcodes: Facebook Embeds: Register alternate permalink.php URL for posts
-* Bug Fix: Subscriptions: Moved inline styles from widget email input to seperate css file
+* Bug Fix: Subscriptions: Moved inline styles from widget email input to separate css file
 * Bug Fix: Theme Tools: Fix glitch where random-redirect.php also showed as a plugin being deleted if you were deleting Jetpack
 * Bug Fix: Misc: Internationalization & RTL updates
 * Bug Fix: Misc: Prevent collisions with 'Facebook Featured Image & OG Meta Tags' plugin
