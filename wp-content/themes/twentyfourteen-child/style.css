@@ -14,6 +14,9 @@
 
 /* =Theme customization starts here
 -------------------------------------------------------------- */
+p{
+
+}
 
 button.lg{
 color:white;
@@ -44,6 +47,7 @@ color:#4e4545;
 font-size: 1em;
 font-style: italic;
 font-weight: 400;
-line-height: 1.2em;
-padding:0 3em 0 0;
+line-height: 1.5em;
+margin:1em 0 0 0;
+padding:0 0 3em 0;
 }
