@@ -28,6 +28,22 @@ p {
 	width: 90%;
 }
 
+
+.site-content article {
+   word-wrap: normal;
+  -webkit-hyphens: none;
+  -moz-hyphens: none;
+   hyphens: none;
+}
+
+.widget-area .widget {
+	-webkit-hyphens: none;
+	-moz-hyphens: none;
+	hyphens: none;
+	word-wrap: normal;
+}
+
+
 a,
 a:active,
 a:hover {
@@ -99,6 +115,8 @@ h2.sub-head {
 	font-size: 1.2em;
 	font-weight: 400;
 	line-height: 1em;
+	text-transform: capitalize;
+	word-wrap:normal;
 }
 
 
@@ -143,12 +161,18 @@ p.faq-a {
 	width: 90%;
 }
 
+ul.bullet li{
+	color: #4c4c4c;
+	font-family: 'varela_roundregular',sans-serif;
+	font-size: 0.9em;
+	margin: 0 0 0.5em 0;
+}
+
 li.bullet {
 	color: #4c4c4c;
 	font-family: 'varela_roundregular',sans-serif;
 	font-size: 1em;
 	margin: 0 0 0.5em 0;
-
 }
 
 
