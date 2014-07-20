@@ -77,7 +77,12 @@ function la_update_manifest_file( $post_id ) {
 			'posts_per_page' => 20);
 	$myposts = get_posts( $postArgs );
 	foreach( $myposts as $post ) :	setup_postdata($post);
-		array_push($cache,"\n" . post_permalink($post->ID) );
+		$postURL = post_permalink($post->ID);
+		array_push($cache,"\n" . $postURL );
+		if(0 == strcmp(substr($postURL, -1) , "/")) {
+			array_push($cache, "\n" . substr($postURL, 0, -1));
+		}
+
 	endforeach;
 
 
@@ -87,7 +92,14 @@ function la_update_manifest_file( $post_id ) {
 			'number' => 20);
 	$mypages = get_pages($pageArgs);
 	foreach( $mypages as $page) {
-		array_push($cache, "\n" . get_page_link($page->ID));
+		$pageURL = get_page_link($page->ID);
+		// error_log($pageURL);
+		// error_log(substr($pageURL, -1));
+		array_push($cache, "\n" . $pageURL);
+		if(0 == strcmp(substr($pageURL, -1) , "/")) {
+			// error_log("true");
+			array_push($cache, "\n" . substr($pageURL, 0, -1));
+		}
 	}
 
 
