@@ -291,3 +291,7 @@ button.lg {
 .site-info a:hover {
 	color: #EEAA42;
 }
+
+section.home {
+	padding: 1em 0em;
+}
