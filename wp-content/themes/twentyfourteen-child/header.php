@@ -44,6 +44,7 @@
 	<script src="<?php echo get_template_directory_uri(); ?>/js/html5.js"></script>
 	<![endif]-->
 	<?php wp_head(); ?>
+
 </head>
 
 <body <?php body_class(); ?>>
@@ -64,9 +65,13 @@
 				<a href="#search-container" class="screen-reader-text"><?php _e( 'Search', 'twentyfourteen' ); ?></a>
 			</div>
 	
-			<a href="/need-help" class="contact-nav-link">
+			<a href="/need-help/" class="contact-nav-link">
 				<div class="contact-nav-wrap">
+					<?php if (isset($_COOKIE['seencontact'])) { ?>
 					<img src="/wp-content/themes/twentyfourteen-child/assets/nav-talk-bubble.svg" class="contact-nav-icon">
+					<?php } else { ?>
+					<img src="/wp-content/themes/twentyfourteen-child/assets/nav-talk-bubble-red-dot.svg" class="contact-nav-icon">
+					<?php } ?>
 				</div>
 			</a>
 		
