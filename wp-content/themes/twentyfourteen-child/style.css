@@ -411,3 +411,19 @@ header.entry-header > h1.entry-title > a {
 	color: white;
 	text-decoration: underline;
 }
+
+.hentry {
+	margin: 0 auto 5px;
+	max-width: 672px;
+}
+
+.list-view .site-content .hentry {
+		border-top: 1px solid rgba(0, 0, 0, 0.1);
+		padding-top: 5px;
+	}
+
+.life-act-need-help {
+	text-color: #ffffff;
+	font-size: 1em;
+	text-align: center;
+}
