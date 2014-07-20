@@ -2,7 +2,7 @@
 /*
 Plugin Name: Live Act Offline Cache
 Version: 0.5
-Description: View the mobile version of Live Act offline. Deactivate and reactivate this plugin when making significant administration changes
+Description: View the mobile version of Live Act offline. Deactivate and reactivate this plugin when making significant administration changes You also need to make the following changes to you .htaccess file:  "AddType text/cache-manifest .appcache" must be added, and you must also configure all .appcache files to never be cached. for example, add  "ExpiresActive On" and "ExpiresDefault "access"" to a FilesMatch portion of .htaccess that matches ".appcache" files
 Author: Andy Zolyak
 Author Email: ajz13@case.edu
 Author URI: http://designedbyz.com
