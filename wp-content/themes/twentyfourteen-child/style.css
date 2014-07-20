@@ -366,3 +366,19 @@ button.lg {
 section.home {
 	padding: 1em 0em;
 }
+
+div.contact-nav-wrap {
+	float: right;
+	width: 2em;
+	margin: 0 1em;
+}
+
+img.contact-nav-icon {
+	width: 80%;
+	margin: 0 auto;
+	padding: 0.6em;
+}
+
+a.content-nav-link {
+	float: right;
+}

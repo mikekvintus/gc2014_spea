@@ -60,14 +60,16 @@
 		<div class="header-main">
 			<h1 class="site-title"><a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a></h1>
 			
-			<div class="contact-nav">
-				<a href="need-help" class="contact-nav-link"><img src="/wp-content/themes/twentyfourteen-child/assets/nav-talk-bubble.svg"></a>
-			</div>
-			
 			<div class="search-toggle">
 				<a href="#search-container" class="screen-reader-text"><?php _e( 'Search', 'twentyfourteen' ); ?></a>
 			</div>
-
+	
+			<a href="/need-help" class="contact-nav-link">
+				<div class="contact-nav-wrap">
+					<img src="/wp-content/themes/twentyfourteen-child/assets/nav-talk-bubble.svg" class="contact-nav-icon">
+				</div>
+			</a>
+		
 			<nav id="primary-navigation" class="site-navigation primary-navigation" role="navigation">
 				<button class="menu-toggle"><?php _e( 'Primary Menu', 'twentyfourteen' ); ?></button>
 				<a class="screen-reader-text skip-link" href="#content"><?php _e( 'Skip to content', 'twentyfourteen' ); ?></a>
