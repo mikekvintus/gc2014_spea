@@ -15,6 +15,7 @@
 /* =Theme customization starts here
 -------------------------------------------------------------- */
 @import url("webfonts.css");
+@import url("addtohomescreen.css");
 
 p {
 	color: #626262;

@@ -31,6 +31,14 @@
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="wp-content/themes/twentyfourteen-child/assets/apple-touch-icon-72-precomposed.png">
     <link rel="apple-touch-icon-precomposed" href="wp-content/themes/twentyfourteen-child/assets/apple-touch-icon-57-precomposed.png">
 
+	<?php
+		if (is_front_page()) { ?>
+			<script src="wp-content/themes/twentyfourteen-child/js/addtohomescreen.min.js"></script>
+			<script>
+			addToHomescreen();
+			</script>
+	<?php } ?>
+
 	<!--[if lt IE 9]>
 	<script src="<?php echo get_template_directory_uri(); ?>/js/html5.js"></script>
 	<![endif]-->
