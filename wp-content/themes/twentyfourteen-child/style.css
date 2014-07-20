@@ -228,6 +228,20 @@ button {
 	box-sizing: border-box;
 }
 
+button.half{
+	background-color: #5b8ddb;
+	border: 3px solid #5b8ddb;
+	border-bottom: 3px solid #527fc5;
+	border-radius: 4px;
+	color: white;
+	margin: 0.2em 1%;
+	padding: 1em 0;
+	text-align: center;
+	box-sizing: border-box;
+	width:48%;
+	float:right;
+}
+
 button:visited {
 }
 
