@@ -21,6 +21,7 @@
 		<?php
 		if (is_front_page()) { ?>
 			<section class="home">
+				<?php echo do_shortcode( '[adrotate banner="12"]' ) ?>
 				<?php echo do_shortcode( '[adrotate banner="5"]' ) ?>
 				<?php echo do_shortcode( '[adrotate banner="6"]' ) ?>	
 			</section>
