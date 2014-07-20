@@ -2,9 +2,10 @@
 /*
 Plugin Name: Live Act Offline Cache
 Version: 0.5
-Description: View the mobile version of Live Act offline
+Description: View the mobile version of Live Act offline. Deactivate and reactivate this plugin when making significant administration changes
 Author: Andy Zolyak
 Author Email: ajz13@case.edu
+Author URI: http://designedbyz.com
 */
 
 defined('ABSPATH') or die("No script kiddies please!");
@@ -65,22 +66,29 @@ function la_update_manifest_file( $post_id ) {
 	//drop a utc timestamp here to make sure the cache always changes :)
     date_default_timezone_set("UTC");	
 	fwrite($fh, "\n\n# " . date("Y-m-d H:i:s", time())); 
- 
-
-
-
-
-
 
     //whitelist everything that isn't in the cache
 	array_push($network,"\n*");
 
-    //get all the posts and cache them. I like this
-    //modify to use with pages?
-	// $myposts = get_posts( $args );
-	// foreach( $myposts as $post ) :	setup_postdata($post);
-	// 	array_push($cache,"\n" . post_permalink($post->ID) );
-	// endforeach;
+    //cache the 20 most recent pages and 20 most recent posts by default
+	$postArgs = array(
+			'orderby' => 'date',
+			'order' => 'DESC',
+			'posts_per_page' => 20);
+	$myposts = get_posts( $postArgs );
+	foreach( $myposts as $post ) :	setup_postdata($post);
+		array_push($cache,"\n" . post_permalink($post->ID) );
+	endforeach;
+
+
+	$pageArgs = array(
+			'sort_order' => 'DESC',
+			'sort_column' => 'post_modified',
+			'number' => 20);
+	$mypages = get_pages($pageArgs);
+	foreach( $mypages as $page) {
+		array_push($cache, "\n" . get_page_link($page->ID));
+	}
 
 
 
@@ -99,14 +107,13 @@ add_action( 'save_post', 'la_update_manifest_file' );
 add_action( 'deleted_post', 'la_update_manifest_file');
 add_action( 'wp_handle_upload', 'la_update_manifest_file');
 add_action( 'switch_theme', 'la_update_manifest_file' );
+//should also fire after added and deleted
 register_activation_hook( __FILE__, 'la_update_manifest_file' );
-
-
 
 
 //add javascript to handle updating the cache in real time.
 function la_register_javascript_cache_handlers() {
-	wp_enqueue_script( 'la_appcache_manager_script', plugins_url( 'manifest-loader.js' , __FILE__ ) );
+	wp_enqueue_script( 'la_appcache_manager_script', plugins_url( 'manifest-loader.js' , __FILE__ ), array( 'jquery' ));
 }
 //register the hook
 add_action( 'wp_enqueue_scripts', 'la_register_javascript_cache_handlers' );
@@ -124,14 +131,6 @@ function la_remove_manifest_file(){
 
 //remove manifest when the plugin is deactiviated
 register_deactivation_hook( __FILE__, 'la_remove_manifest_file' );
-
-
-
-
-
-
-
-
 
 
 
