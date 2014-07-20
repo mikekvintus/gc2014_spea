@@ -23,7 +23,7 @@ p {
 	font-weight: 100;
 	font-size: 1em;
 	line-height: 1.5em;
-	margin: 1em 0 0 0em;
+	margin: 0.5em 0 0 0em;
 	padding: 0 0 1em 0em;
 	width: 90%;
 }
@@ -62,8 +62,8 @@ font-family: 'varela_roundregular',courier;
 font-weight: 100;
 font-size: 1.3em;
 line-height: 1.5em;
-margin:1em auto 2.5em auto;
-width:90%;
+margin:1em auto 1.5em auto;
+width:95%;
 }
 
 h1.page-section-head {
@@ -98,7 +98,7 @@ h2.sub-head {
 	font-family: 'varela_roundregular',courier;
 	font-size: 1.2em;
 	font-weight: 400;
-	line-height: 1.4em;
+	line-height: 1em;
 }
 
 
