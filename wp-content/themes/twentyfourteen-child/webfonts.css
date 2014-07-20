@@ -3,13 +3,14 @@
 
 
 @font-face {
-    font-family: 'varela_roundregular';
-    src: url('fonts/varelaround-regular-webfont.eot');
-    src: url('fonts/varelaround-regular-webfont.eot?#iefix') format('embedded-opentype'),
-         url('fonts/varelaround-regular-webfont.woff') format('woff'),
-         url('fonts/varelaround-regular-webfont.ttf') format('truetype'),
-         url('fonts/varelaround-regular-webfont.svg#varela_roundregular') format('svg');
+    font-family: 'alerav-irregular';
+    src: url('fonts/alerav-irregular-webfont.eot');
+    src: url('fonts/alerav-irregular-webfont.eot?#iefix') format('embedded-opentype'),
+         url('fonts/alerav-irregular-webfont.woff') format('woff'),
+         url('fonts/alerav-irregular-webfont.ttf') format('truetype'),
+         url('fonts/alerav-irregular-webfont.svg#alerav-irregular') format('svg');
     font-weight: normal;
     font-style: normal;
 
 }
+
