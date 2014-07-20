@@ -111,6 +111,17 @@ h2.more-stuff-link {
 	padding: 0.35em 0 0.875em 0;
 }
 
+h2.more-stuff-link a:link {
+	border-bottom: 1px solid #f4f4f4;
+	color: #ffb501;
+	font-family: 'Helvetica', sans-serif;
+	font-weight: 100;
+	font-size: 1.25em;
+	margin: 1em 0 1em 0;
+	padding: 0.35em 0 0.875em 0;
+	text-decoration: none;
+}
+
 h2.title {
 	text-align: center;
 }
