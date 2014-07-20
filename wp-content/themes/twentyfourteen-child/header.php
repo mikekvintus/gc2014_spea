@@ -59,6 +59,10 @@
 	<header id="masthead" class="site-header" role="banner">
 		<div class="header-main">
 			<h1 class="site-title"><a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a></h1>
+			
+			<div class="contact-nav">
+				<a href="need-help" class="contact-nav-link"><img src="wp-content/themes/twentyfourteen-child/assets/nav-talk-bubble.svg"></a>
+			</div>
 
 			<div class="search-toggle">
 				<a href="#search-container" class="screen-reader-text"><?php _e( 'Search', 'twentyfourteen' ); ?></a>
