@@ -2999,7 +2999,7 @@ a.post-thumbnail:hover {
 @viewport {
 	width: device-width;
 }
-
+/*
 @media screen and (max-width: 400px) {
 	.list-view .site-content .post-thumbnail {
 		background: none;
@@ -3073,7 +3073,7 @@ a.post-thumbnail:hover {
 		padding: 0 10px;
 	}
 }
-
+*/
 @media screen and (min-width: 401px) {
 	a.post-thumbnail:hover img {
 		opacity: 0.85;
