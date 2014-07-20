@@ -25,11 +25,11 @@
 	<link rel="profile" href="http://gmpg.org/xfn/11">
 	<link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>">
 
-    <link rel="shortcut icon" href="assets/favicon.png">
-    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="assets/apple-touch-icon-144-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="assets/apple-touch-icon-114-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="assets/apple-touch-icon-72-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" href="assets/apple-touch-icon-57-precomposed.png">
+    <link rel="shortcut icon" href="wp-content/themes/twentyfourteen-child/assets/favicon.png">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="wp-content/themes/twentyfourteen-child/assets/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="wp-content/themes/twentyfourteen-child/assets/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="wp-content/themes/twentyfourteen-child/assets/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="wp-content/themes/twentyfourteen-child/assets/apple-touch-icon-57-precomposed.png">
 
 	<!--[if lt IE 9]>
 	<script src="<?php echo get_template_directory_uri(); ?>/js/html5.js"></script>
