@@ -1,7 +1,7 @@
   <?php
 /*
 Plugin Name: Live Act Offline Cache
-Version: 0.1
+Version: 0.5
 Description: View the mobile version of Live Act offline
 Author: Andy Zolyak
 Author Email: ajz13@case.edu
@@ -97,11 +97,23 @@ function la_update_manifest_file_noarg( ) {
 //update manifest hooks
 add_action( 'save_post', 'la_update_manifest_file' );
 add_action( 'deleted_post', 'la_update_manifest_file');
-add_action('wp_handle_upload', 'la_update_manifest_file');
+add_action( 'wp_handle_upload', 'la_update_manifest_file');
 add_action( 'switch_theme', 'la_update_manifest_file' );
 register_activation_hook( __FILE__, 'la_update_manifest_file' );
 
-//remove the manifest file(filename)
+
+
+
+//add javascript to handle updating the cache in real time.
+function la_register_javascript_cache_handlers() {
+	wp_enqueue_script( 'la_appcache_manager_script', plugins_url( 'manifest-loader.js' , __FILE__ ) );
+}
+//register the hook
+add_action( 'wp_enqueue_scripts', 'la_register_javascript_cache_handlers' );
+
+
+
+//remove the manifest file. Typically done when the plugin is deactiviated
 function la_remove_manifest_file(){
 	$files = array( get_stylesheet_directory().'/offline.appcache' );
 	foreach( $files as $file ) {
