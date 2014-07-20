@@ -34,7 +34,7 @@ p {
 	line-height: 1.5em;
 	margin: 0.5em 0 0 0em;
 	padding: 0 0 1em 0em;
-	width: 90%;
+/*	width: 90%;*/
 -webkit-hyphens: none;
 -moz-hyphens: none;
 hyphens: none;
@@ -82,10 +82,10 @@ font-size: 1.5em;
 font-weight: 100;
 letter-spacing: 1px;
 line-height: 1.2em;
-padding:2em 0;
+padding:0.5em 0;
 text-align: center;
 text-transform: capitalize;
-margin-top:1.6em;
+margin-top:1.0em;
 
 }
 
@@ -395,4 +395,9 @@ img.contact-nav-icon {
 
 a.content-nav-link {
 	float: right;
+}
+
+header.entry-header > h1.entry-title > a {
+	color: white;
+	text-decoration: underline;
 }
