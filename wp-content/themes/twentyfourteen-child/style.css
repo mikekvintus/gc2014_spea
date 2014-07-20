@@ -67,14 +67,14 @@ width:90%;
 }
 
 h1.page-section-head {
-	font-family: 'Helvetica',sans-serif;
+	font-family: 'varela_roundregular',courier;
 	font-size: 1.5em;
 }
 
 h1.more-stuff {
 	border-top: 1px solid #dddada;
 	color: #5b8ddb;
-	font-family: 'Helvetica', sans-serif;
+	font-family: 'varela_roundregular',courier;
 	font-weight: 400;
 	font-size: 1.5em;
 	margin: 2em 0 0.5em 0;
@@ -95,7 +95,7 @@ h2.faq-q {
 }
 
 h2.sub-head {
-	font-family: 'Helvetica',sans-serif;
+	font-family: 'varela_roundregular',courier;
 	font-size: 1.2em;
 	font-weight: 400;
 }
@@ -104,19 +104,22 @@ h2.sub-head {
 h2.more-stuff-link {
 	border-bottom: 1px solid #f4f4f4;
 	color: #ffb501;
-	font-family: 'Helvetica', sans-serif;
+	font-family: 'varela_roundregular',courier;
 	font-weight: 100;
 	font-size: 1.25em;
 	margin: 1em 0 1em 0;
 	padding: 0.35em 0 0.875em 0;
 }
 
-h2.more-stuff-link a:link, h2.more-stuff-link a:visited, h2.more-stuff-link a:hover, h2.more-stuff-link a:active {
+h2.more-stuff-link a:link, h2.more-stuff-link a:visited{
 	color: #ffb501;
 	text-decoration: none;
 }
 
-
+h2.more-stuff-link a:hover{
+	color: #e5a301;
+	text-decoration: none;
+}
 
 h2.title {
 	text-align: center;
